@@ -42,7 +42,7 @@ Pointer<Uint8> nativeSha512(Pointer<Uint8> cString, int length) => _shaBase(
 String cStringToDartString(Pointer<Uint8> cString, int stringLength) {
   int len = 0;
   final units = List<int>(stringLength);
-  while (len < cryptoHashSha512Bytes) {
+  while (len < stringLength) {
     units[len] = cString.elementAt(len).load<int>();
     len++;
   }
