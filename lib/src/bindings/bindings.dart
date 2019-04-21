@@ -11,8 +11,10 @@ class SodiumBindings {
   DynamicLibrary sodium;
 
   int Function() sodium_init;
-  void Function(CString out, CString message, int length) crypto_hash_sha256;
-  void Function(CString out, CString message, int length) crypto_hash_sha512;
+  void Function(Pointer<Uint8> out, Pointer<Uint8> message, int length)
+      crypto_hash_sha256;
+  void Function(Pointer<Uint8> out, Pointer<Uint8> message, int length)
+      crypto_hash_sha512;
 
   SodiumBindings({String path = './'}) {
     sodium = dlopenPlatformSpecific('sodium', path: path);
