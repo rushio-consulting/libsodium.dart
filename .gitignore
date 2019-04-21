@@ -11,4 +11,5 @@ build/
 doc/api/
 
 libsodium.so*
-libsodium.dylib*
+libsodium*.dylib*
+/.idea/
