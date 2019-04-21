@@ -19,7 +19,7 @@ int sodiumInit({String libPath = './'}) {
 String sha256(List<int> codeUnits) {
   Pointer<Uint8> out = allocate<Uint8>(count: cryptoHashSha256Bytes);
   bindings.crypto_hash_sha256(
-      out, CString.fromCodeUntis(codeUnits), codeUnits.length);
+      out, CString.fromCodeUnits(codeUnits), codeUnits.length);
   int len = 0;
   final units = List<int>(cryptoHashSha256Bytes);
   while (len < cryptoHashSha256Bytes) {
@@ -33,7 +33,7 @@ String sha256(List<int> codeUnits) {
 String sha512(List<int> codeUnits) {
   Pointer<Uint8> out = allocate<Uint8>(count: cryptoHashSha512Bytes);
   bindings.crypto_hash_sha512(
-      out, CString.fromCodeUntis(codeUnits), codeUnits.length);
+      out, CString.fromCodeUnits(codeUnits), codeUnits.length);
   int len = 0;
   final units = List<int>(cryptoHashSha512Bytes);
   while (len < cryptoHashSha512Bytes) {
