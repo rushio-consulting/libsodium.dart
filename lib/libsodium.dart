@@ -30,7 +30,8 @@ Pointer<Uint8> nativeSha256(Pointer<Uint8> cString, int length) => _shaBase(
     cString, length, cryptoHashSha256Bytes, bindings.crypto_hash_sha256);
 
 String sha256(List<int> codeUnits) {
-  final out = nativeSha256(CString.fromCodeUnits(codeUnits), codeUnits.length);
+  final out =
+      nativeSha256(CString.fromCodeUnits(codeUnits).ptr, codeUnits.length);
   final _data = cStringToDartString(out, cryptoHashSha256Bytes);
   out.free();
   return _data;
@@ -50,7 +51,8 @@ String cStringToDartString(Pointer<Uint8> cString, int stringLength) {
 }
 
 String sha512(List<int> codeUnits) {
-  final out = nativeSha512(CString.fromCodeUnits(codeUnits), codeUnits.length);
+  final out =
+      nativeSha512(CString.fromCodeUnits(codeUnits).ptr, codeUnits.length);
   final _data = cStringToDartString(out, cryptoHashSha512Bytes);
   out.free();
   return _data;

@@ -56,7 +56,6 @@ class LibSodiumSHA512Benchmark extends BaseBenchmark {
   }
 }
 
-
 class LibSodiumSHA512FFIOnlyBenchmark extends BaseBenchmark {
   CString data;
   List<int> units;
@@ -68,7 +67,7 @@ class LibSodiumSHA512FFIOnlyBenchmark extends BaseBenchmark {
 
   // The benchmark code.
   void run() {
-    digest = nativeSha512(data, units.length);
+    digest = nativeSha512(data.ptr, units.length);
   }
 
   // Not measured setup code executed prior to the benchmark runs.
