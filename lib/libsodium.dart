@@ -40,14 +40,19 @@ CString _shaBase(CString cString, int length, int outputSize,
 CString nativeSha512(CString cString, int length) => _shaBase(
     cString, length, cryptoHashSha512Bytes, bindings.crypto_hash_sha512);
 
-String sha512(List<int> codeUnits) {
-  final out = nativeSha512(CString.fromCodeUnits(codeUnits), codeUnits.length);
+String cStringToDartString(CString cString, int stringLength) {
   int len = 0;
-  final units = List<int>(cryptoHashSha512Bytes);
+  final units = List<int>(stringLength);
   while (len < cryptoHashSha512Bytes) {
-    units[len] = out.elementAt(len).load<int>();
+    units[len] = cString.elementAt(len).load<int>();
     len++;
   }
-  out.free();
   return hex.encode(units);
+}
+
+String sha512(List<int> codeUnits) {
+  final out = nativeSha512(CString.fromCodeUnits(codeUnits), codeUnits.length);
+  final _data = cStringToDartString(out, cryptoHashSha512Bytes);
+  out.free();
+  return _data;
 }
