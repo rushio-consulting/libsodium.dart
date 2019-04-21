@@ -32,7 +32,8 @@ Pointer<Uint8> nativeSha256(Pointer<Uint8> cString, int length) => _shaBase(
 String sha256(List<int> codeUnits) {
   final out =
       nativeSha256(CString.fromCodeUnits(codeUnits).ptr, codeUnits.length);
-  final _data = cStringToDartString(out, cryptoHashSha256Bytes);
+  final _data =
+      hex.encode(CString(out, length: cryptoHashSha256Bytes).codeUnits);
   out.free();
   return _data;
 }
@@ -40,20 +41,11 @@ String sha256(List<int> codeUnits) {
 Pointer<Uint8> nativeSha512(Pointer<Uint8> cString, int length) => _shaBase(
     cString, length, cryptoHashSha512Bytes, bindings.crypto_hash_sha512);
 
-String cStringToDartString(Pointer<Uint8> cString, int stringLength) {
-  int len = 0;
-  final units = List<int>(stringLength);
-  while (len < stringLength) {
-    units[len] = cString.elementAt(len).load<int>();
-    len++;
-  }
-  return hex.encode(units);
-}
-
 String sha512(List<int> codeUnits) {
   final out =
       nativeSha512(CString.fromCodeUnits(codeUnits).ptr, codeUnits.length);
-  final _data = cStringToDartString(out, cryptoHashSha512Bytes);
+  final _data =
+      hex.encode(CString(out, length: cryptoHashSha512Bytes).codeUnits);
   out.free();
   return _data;
 }

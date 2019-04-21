@@ -2,14 +2,15 @@ import "dart:convert";
 import "dart:ffi";
 
 class CString {
-  Pointer<Uint8> _ptr;
-  int length;
+  final Pointer<Uint8> _ptr;
 
-  CString(this._ptr, this.length)
-      : assert(_ptr != null),
-        assert(length != null);
+  int _length;
+  List<int> _codeUnits;
 
-  Pointer<Uint8> get ptr => _ptr;
+  CString(this._ptr, {List<int> codeUnits, int length})
+      : assert(codeUnits != null || length != null),
+        _length = (length ??= codeUnits?.length),
+        _codeUnits = codeUnits;
 
   factory CString.fromCodeUnits(List<int> codeUnits) {
     final ptr = allocate<Uint8>(count: codeUnits.length);
@@ -17,7 +18,7 @@ class CString {
       ptr.elementAt(i).store(codeUnits[i]);
     }
     ptr.elementAt(codeUnits.length).store(0);
-    return CString(ptr, codeUnits.length);
+    return CString(ptr, codeUnits: codeUnits);
   }
 
   factory CString.fromUtf8(String dartStr) {
@@ -25,13 +26,33 @@ class CString {
     return CString.fromCodeUnits(units);
   }
 
-  String toString() {
+  Pointer<Uint8> get ptr => _ptr;
+
+  int get length {
+    if (_length != null) {
+      return _length;
+    }
+    int len = 0;
+    while (_ptr.elementAt(len).load<int>() != 0) {
+      len++;
+    }
+    _length = len;
+    return _length;
+  }
+
+  List<int> get codeUnits {
+    if (_codeUnits != null) {
+      return _codeUnits;
+    }
     int len = 0;
     final units = List<int>(length);
     while (len < length) {
-      units[len] = _ptr.elementAt(len).load<int>();
+      units[len] = ptr.elementAt(len).load<int>();
       len++;
     }
-    return utf8.decode(units);
+    _codeUnits = units;
+    return _codeUnits;
   }
+
+  String toString() => utf8.decode(codeUnits);
 }
