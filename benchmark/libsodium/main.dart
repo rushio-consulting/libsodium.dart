@@ -1,31 +1,7 @@
-import 'dart:convert';
+import 'package:libsodium/libsodium.dart';
 
 import '../common/base_test.dart';
 import '../common/constant.dart'; // for the utf8.encode method
-
-class LibSodiumSHA1Benchmark extends BaseBenchmark {
-  LibSodiumSHA1Benchmark() : super("LibSodiumSHA1");
-
-  static void main() {
-    new LibSodiumSHA1Benchmark().report();
-  }
-
-  // The benchmark code.
-  void run() {
-    //digest = sha1.convert(bytes);
-  }
-
-  // Not measured setup code executed prior to the benchmark runs.
-  void setup() {
-    bytes = utf8.encode(dataToEncrypt); // data being hashed
-    super.setup();
-  }
-
-  // Not measures teardown code executed after the benchark runs.
-  void teardown() {
-    super.teardown();
-  }
-}
 
 class LibSodiumSHA256Benchmark extends BaseBenchmark {
   LibSodiumSHA256Benchmark() : super("LibSodiumSHA256");
@@ -36,12 +12,36 @@ class LibSodiumSHA256Benchmark extends BaseBenchmark {
 
   // The benchmark code.
   void run() {
-    //digest = sha256.convert(bytes);
+    digest = sha256(dataToEncrypt);
   }
 
   // Not measured setup code executed prior to the benchmark runs.
   void setup() {
-    bytes = utf8.encode(dataToEncrypt); // data being hashed
+    sodiumInit(libPath: '../');
+    super.setup();
+  }
+
+  // Not measures teardown code executed after the benchark runs.
+  void teardown() {
+    super.teardown();
+  }
+}
+
+class LibSodiumSHA512Benchmark extends BaseBenchmark {
+  LibSodiumSHA512Benchmark() : super("LibSodiumSHA512");
+
+  static void main() {
+    new LibSodiumSHA512Benchmark().report();
+  }
+
+  // The benchmark code.
+  void run() {
+    digest = sha512(dataToEncrypt);
+  }
+
+  // Not measured setup code executed prior to the benchmark runs.
+  void setup() {
+    sodiumInit(libPath: '../');
     super.setup();
   }
 
@@ -54,6 +54,6 @@ class LibSodiumSHA256Benchmark extends BaseBenchmark {
 
 main() {
   // Run TemplateBenchmark
-  LibSodiumSHA1Benchmark.main();
   LibSodiumSHA256Benchmark.main();
+  LibSodiumSHA512Benchmark.main();
 }
