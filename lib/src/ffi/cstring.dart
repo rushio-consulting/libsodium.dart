@@ -2,12 +2,14 @@ import "dart:convert";
 import "dart:ffi";
 
 class CString {
-  Pointer<Uint8> ptr;
+  Pointer<Uint8> _ptr;
   int length;
 
-  CString(this.ptr, this.length)
-      : assert(ptr != null),
+  CString(this._ptr, this.length)
+      : assert(_ptr != null),
         assert(length != null);
+
+  Pointer<Uint8> get ptr => _ptr;
 
   factory CString.fromCodeUnits(List<int> codeUnits) {
     Pointer<Uint8> ptr = allocate(count: codeUnits.length);
@@ -27,7 +29,7 @@ class CString {
     int len = 0;
     final units = List<int>(length);
     while (len < length) {
-      units[len] = ptr.elementAt(len).load<int>();
+      units[len] = _ptr.elementAt(len).load<int>();
       len++;
     }
     return utf8.decode(units);
