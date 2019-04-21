@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:libsodium/libsodium.dart';
 
 import '../common/base_test.dart';
@@ -12,12 +14,13 @@ class LibSodiumSHA256Benchmark extends BaseBenchmark {
 
   // The benchmark code.
   void run() {
-    digest = sha256(dataToEncrypt);
+    digest = sha256(bytes);
   }
 
   // Not measured setup code executed prior to the benchmark runs.
   void setup() {
     sodiumInit(libPath: '../');
+    bytes = utf8.encode(dataToEncrypt); // data being hashed
     super.setup();
   }
 
@@ -36,12 +39,13 @@ class LibSodiumSHA512Benchmark extends BaseBenchmark {
 
   // The benchmark code.
   void run() {
-    digest = sha512(dataToEncrypt);
+    digest = sha512(bytes);
   }
 
   // Not measured setup code executed prior to the benchmark runs.
   void setup() {
     sodiumInit(libPath: '../');
+    bytes = utf8.encode(dataToEncrypt); // data being hashed
     super.setup();
   }
 
@@ -50,7 +54,6 @@ class LibSodiumSHA512Benchmark extends BaseBenchmark {
     super.teardown();
   }
 }
-
 
 main() {
   // Run TemplateBenchmark

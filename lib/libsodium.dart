@@ -16,28 +16,30 @@ int sodiumInit({String libPath = './'}) {
   return bindings.sodium_init();
 }
 
-String sha256(String message) {
+String sha256(List<int> codeUnits) {
   Pointer<Uint8> out = allocate<Uint8>(count: cryptoHashSha256Bytes);
-  bindings.crypto_hash_sha256(out, CString.allocate(message), message.length);
+  bindings.crypto_hash_sha256(
+      out, CString.fromCodeUntis(codeUnits), codeUnits.length);
   int len = 0;
+  final units = List<int>(cryptoHashSha256Bytes);
   while (len < cryptoHashSha256Bytes) {
-    out.elementAt(len).load<int>();
+    units[len] = out.elementAt(len).load<int>();
     len++;
   }
-  List<int> units = List(len);
-  for (int i = 0; i < len; ++i) units[i] = out.elementAt(i).load();
+  out.free();
   return hex.encode(units);
 }
 
-String sha512(String message) {
+String sha512(List<int> codeUnits) {
   Pointer<Uint8> out = allocate<Uint8>(count: cryptoHashSha512Bytes);
-  bindings.crypto_hash_sha512(out, CString.allocate(message), message.length);
+  bindings.crypto_hash_sha512(
+      out, CString.fromCodeUntis(codeUnits), codeUnits.length);
   int len = 0;
+  final units = List<int>(cryptoHashSha512Bytes);
   while (len < cryptoHashSha512Bytes) {
-    out.elementAt(len).load<int>();
+    units[len] = out.elementAt(len).load<int>();
     len++;
   }
-  List<int> units = List(cryptoHashSha512Bytes);
-  for (int i = 0; i < len; ++i) units[i] = out.elementAt(i).load();
+  out.free();
   return hex.encode(units);
 }
