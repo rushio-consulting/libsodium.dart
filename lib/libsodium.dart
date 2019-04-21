@@ -17,7 +17,7 @@ int sodiumInit({String libPath = './'}) {
 }
 
 String sha256(List<int> codeUnits) {
-  Pointer<Uint8> out = allocate<Uint8>(count: cryptoHashSha256Bytes);
+  CString out = allocate<Uint8>(count: cryptoHashSha256Bytes).cast<CString>();
   bindings.crypto_hash_sha256(
       out, CString.fromCodeUnits(codeUnits), codeUnits.length);
   int len = 0;
@@ -30,10 +30,18 @@ String sha256(List<int> codeUnits) {
   return hex.encode(units);
 }
 
+CString _shaBase(CString cString, int length, int outputSize,
+    void Function(CString out, CString message, int length) f) {
+  CString out = allocate<Uint8>(count: outputSize).cast<CString>();
+  f(out, cString, length);
+  return out;
+}
+
+CString nativeSha512(CString cString, int length) => _shaBase(
+    cString, length, cryptoHashSha512Bytes, bindings.crypto_hash_sha512);
+
 String sha512(List<int> codeUnits) {
-  Pointer<Uint8> out = allocate<Uint8>(count: cryptoHashSha512Bytes);
-  bindings.crypto_hash_sha512(
-      out, CString.fromCodeUnits(codeUnits), codeUnits.length);
+  final out = nativeSha512(CString.fromCodeUnits(codeUnits), codeUnits.length);
   int len = 0;
   final units = List<int>(cryptoHashSha512Bytes);
   while (len < cryptoHashSha512Bytes) {
