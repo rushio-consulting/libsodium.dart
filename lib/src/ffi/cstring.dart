@@ -12,7 +12,7 @@ class CString {
   Pointer<Uint8> get ptr => _ptr;
 
   factory CString.fromCodeUnits(List<int> codeUnits) {
-    Pointer<Uint8> ptr = allocate(count: codeUnits.length);
+    final ptr = allocate<Uint8>(count: codeUnits.length);
     for (int i = 0; i < codeUnits.length; ++i) {
       ptr.elementAt(i).store(codeUnits[i]);
     }
@@ -21,7 +21,7 @@ class CString {
   }
 
   factory CString.fromUtf8(String dartStr) {
-    List<int> units = Utf8Encoder().convert(dartStr);
+    final units = Utf8Encoder().convert(dartStr);
     return CString.fromCodeUnits(units);
   }
 
