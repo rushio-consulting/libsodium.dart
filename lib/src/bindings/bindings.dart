@@ -1,11 +1,8 @@
 import 'dart:ffi';
 
-import 'package:libsodium/src/ffi/cstring.dart';
-
 import '../ffi/dylib_utils.dart';
 
 import 'signatures.dart';
-import 'types.dart';
 
 class SodiumBindings {
   DynamicLibrary sodium;
