@@ -19,25 +19,21 @@ int sodiumInit({String libPath = './'}) {
   return bindings.sodium_init();
 }
 
-String sha256(List<int> codeUnits) {
-  Pointer<Uint8> out = allocate<Uint8>(count: cryptoHashSha256Bytes);
-  bindings.crypto_hash_sha256(
-      out, CString.fromCodeUnits(codeUnits), codeUnits.length);
-  int len = 0;
-  final units = List<int>(cryptoHashSha256Bytes);
-  while (len < cryptoHashSha256Bytes) {
-    units[len] = out.elementAt(len).load<int>();
-    len++;
-  }
-  out.free();
-  return hex.encode(units);
-}
-
 Pointer<Uint8> _shaBase(Pointer<Uint8> cString, int length, int outputSize,
     void Function(Pointer<Uint8> out, Pointer<Uint8> message, int length) f) {
   Pointer<Uint8> out = allocate<Uint8>(count: outputSize);
   f(out, cString, length);
   return out;
+}
+
+Pointer<Uint8> nativeSha256(Pointer<Uint8> cString, int length) => _shaBase(
+    cString, length, cryptoHashSha256Bytes, bindings.crypto_hash_sha256);
+
+String sha256(List<int> codeUnits) {
+  final out = nativeSha256(CString.fromCodeUnits(codeUnits), codeUnits.length);
+  final _data = cStringToDartString(out, cryptoHashSha256Bytes);
+  out.free();
+  return _data;
 }
 
 Pointer<Uint8> nativeSha512(Pointer<Uint8> cString, int length) => _shaBase(
