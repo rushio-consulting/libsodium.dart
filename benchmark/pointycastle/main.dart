@@ -1,7 +1,7 @@
 
-
 import 'dart:convert';
 
+import 'package:convert/convert.dart';
 import 'package:pointycastle/pointycastle.dart';
 
 import '../common/base_test.dart';
@@ -18,7 +18,7 @@ class PointyCastleSHA256Benchmark extends BaseBenchmark {
 
   // The benchmark code.
   void run() {
-    digest = _digest.process(bytes);
+    digest = hex.encode(_digest.process(bytes));
   }
 
   // Not measured setup code executed prior to the benchmark runs.
@@ -45,7 +45,7 @@ class PointyCastleSHA512Benchmark extends BaseBenchmark {
 
   // The benchmark code.
   void run() {
-    digest = _digest.process(bytes);
+    digest = hex.encode(_digest.process(bytes));
   }
 
   // Not measured setup code executed prior to the benchmark runs.
