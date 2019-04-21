@@ -74,7 +74,7 @@ class LibSodiumSHA512FFIOnlyBenchmark extends BaseBenchmark {
   void setup() {
     sodiumInit(libPath: '../');
     units = Utf8Encoder().convert(dataToEncrypt);
-    data = CString.allocate(dataToEncrypt);
+    data = CString.fromUtf8(dataToEncrypt);
     super.setup();
   }
 
