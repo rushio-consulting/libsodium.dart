@@ -11,7 +11,7 @@ class _SodiumBindings {
   int Function() sodium_init;
 
   _SodiumBindings() {
-    sodium = dlopenPlatformSpecific('sodium');
+    sodium = dlopenPlatformSpecific('sodium', path: './');
     sodium_init = sodium
         .lookup<NativeFunction<sodium_init_t>>("sodium_init")
         .asFunction();
