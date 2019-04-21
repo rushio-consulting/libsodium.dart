@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:libsodium/libsodium.dart';
+import 'package:libsodium/src/ffi/cstring.dart';
 
 import '../common/base_test.dart';
 import '../common/constant.dart'; // for the utf8.encode method
@@ -55,8 +56,38 @@ class LibSodiumSHA512Benchmark extends BaseBenchmark {
   }
 }
 
+
+class LibSodiumSHA512FFIOnlyBenchmark extends BaseBenchmark {
+  CString data;
+  List<int> units;
+  LibSodiumSHA512FFIOnlyBenchmark() : super("LibSodiumSHA512FFIOnly");
+
+  static void main() {
+    new LibSodiumSHA512FFIOnlyBenchmark().report();
+  }
+
+  // The benchmark code.
+  void run() {
+    digest = nativeSha512(data, units.length);
+  }
+
+  // Not measured setup code executed prior to the benchmark runs.
+  void setup() {
+    sodiumInit(libPath: '../');
+    units = Utf8Encoder().convert(dataToEncrypt);
+    data = CString.allocate(dataToEncrypt);
+    super.setup();
+  }
+
+  // Not measures teardown code executed after the benchark runs.
+  void teardown() {
+    super.teardown();
+  }
+}
+
 main() {
   // Run TemplateBenchmark
   LibSodiumSHA256Benchmark.main();
   LibSodiumSHA512Benchmark.main();
+  LibSodiumSHA512FFIOnlyBenchmark.main();
 }
