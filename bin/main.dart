@@ -20,7 +20,14 @@ void main() async {
   sodiumInit();
 
   final password = 'Correct Horse Battery Staple';
-  final data = scryptPasswordStorage(password);
+  final data = scryptPasswordStorage(password.codeUnits);
+  if (data == null) {
+    print('data is null');
+    return;
+  }
   print(hex.encode(data));
+
+  final result = scryptPasswordStorageVerify(data, password.codeUnits);
+  print(result);
   print('end');
 }

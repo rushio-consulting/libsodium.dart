@@ -3,33 +3,50 @@ import 'dart:ffi';
 import 'package:libsodium/src/ffi/cstring.dart';
 import 'package:libsodium/src/init.dart';
 
-Pointer<Uint8> cryptoPwhashScryptsalsa208sha256Str(String password) {
-  final hashedPassword =
-      allocate<Uint8>(count: bindings.crypto_box_seedbytes());
-  final cStringPassword = CString.fromUtf8(password);
+Pointer<Uint8> cryptoPwhashScryptsalsa208sha256Str(
+    Pointer<Uint8> password, int passwordLength) {
+  final hashedPassword = allocate<Uint8>(
+      count: bindings.crypto_pwhash_scryptsalsa208sha256_strbytes());
   final result = bindings.crypto_pwhash_scryptsalsa208sha256_str(
     hashedPassword,
-    cStringPassword.ptr,
-    cStringPassword.length,
+    password,
+    passwordLength,
     bindings.crypto_pwhash_scryptsalsa208sha256_opslimit_sensitive(),
     bindings.crypto_pwhash_scryptsalsa208sha256_memlimit_sensitive(),
   );
-  cStringPassword.ptr.free();
   if (result != 0) {
     return null;
   }
   return hashedPassword;
 }
 
-List<int> scryptPasswordStorage(String password) {
-  final _data = cryptoPwhashScryptsalsa208sha256Str(password);
+List<int> scryptPasswordStorage(List<int> password) {
+  final p = CString.fromCodeUnits(password);
+  final _data = cryptoPwhashScryptsalsa208sha256Str(p.ptr, password.length);
   if (_data == null) {
     return null;
   }
-  final d = List<int>(bindings.crypto_box_seedbytes());
-  for (var i = 0; i < bindings.crypto_box_seedbytes(); i++) {
+  final d = List<int>(bindings.crypto_pwhash_scryptsalsa208sha256_strbytes());
+  for (var i = 0;
+      i < bindings.crypto_pwhash_scryptsalsa208sha256_strbytes();
+      i++) {
     d[i] = _data.elementAt(i).load<int>();
   }
   _data.free();
   return d;
+}
+
+int cryptoPwhashScryptsalsa208sha256StrVerify(
+        Pointer<Uint8> str, Pointer<Uint8> password, int passwordLength) =>
+    bindings.crypto_pwhash_scryptsalsa208sha256_str_verify(
+        str, password, passwordLength);
+
+int scryptPasswordStorageVerify(List<int> hashedPassword, List<int> password) {
+  final cHashedPassword = CString.fromCodeUnits(hashedPassword);
+  final cPassword = CString.fromCodeUnits(password);
+  final result = cryptoPwhashScryptsalsa208sha256StrVerify(
+      cHashedPassword.ptr, cPassword.ptr, password.length);
+  cHashedPassword.ptr.free();
+  cPassword.ptr.free();
+  return result;
 }

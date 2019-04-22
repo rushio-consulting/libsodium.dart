@@ -51,6 +51,9 @@ class SodiumBindings {
     int memLimitSensitive,
   ) crypto_pwhash_scryptsalsa208sha256_str;
 
+  int Function(Pointer<Uint8> str, Pointer<Uint8> password, int passwordLength)
+      crypto_pwhash_scryptsalsa208sha256_str_verify;
+
   SodiumBindings({String path = './'}) {
     sodium = dlopenPlatformSpecific('sodium', path: path);
     sodium_init = sodium
@@ -115,6 +118,12 @@ class SodiumBindings {
     crypto_pwhash_scryptsalsa208sha256_str = sodium
         .lookup<NativeFunction<crypto_pwhash_scryptsalsa208sha256_str_t>>(
             'crypto_pwhash_scryptsalsa208sha256_str')
+        .asFunction();
+    crypto_pwhash_scryptsalsa208sha256_str_verify = sodium
+        .lookup<
+                NativeFunction<
+                    crypto_pwhash_scryptsalsa208sha256_str_verify_t>>(
+            'crypto_pwhash_scryptsalsa208sha256_str_verify')
         .asFunction();
   }
 }
