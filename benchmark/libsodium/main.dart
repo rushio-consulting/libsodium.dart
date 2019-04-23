@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:ffi';
 
 import 'package:libsodium/libsodium.dart';
 
@@ -59,7 +60,7 @@ class LibSodiumSHA512Benchmark extends BaseBenchmark {
 }
 
 class LibSodiumSHA512FFIOnlyBenchmark extends BaseBenchmark {
-  ByteArray data;
+  ByteArray<Uint8> data;
   List<int> units;
   LibSodiumSHA512FFIOnlyBenchmark() : super("LibSodiumSHA512FFIOnly");
 
@@ -77,7 +78,7 @@ class LibSodiumSHA512FFIOnlyBenchmark extends BaseBenchmark {
   void setup() {
     sodiumInit(libPath: '../');
     units = Utf8Encoder().convert(dataToEncrypt);
-    data = ByteArray.fromCodeUnits(units);
+    data = ByteArray<Uint8>.fromCodeUnits(units);
     super.setup();
   }
 
