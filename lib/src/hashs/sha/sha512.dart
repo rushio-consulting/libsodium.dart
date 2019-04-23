@@ -23,12 +23,6 @@ List<int> cryptoHashSha512(List<int> codeUnits) {
   return bytes;
 }
 
-final sha512 = Sha512._();
-
 class Sha512 {
-  Sha512._();
-
-  Sha512 newInstance() => Sha512._();
-
   Digest convert(List<int> bytes) => Digest(cryptoHashSha512(bytes));
 }

@@ -23,12 +23,6 @@ List<int> cryptoHashSha256(List<int> codeUnits) {
   return bytes;
 }
 
-final sha256 = Sha256._();
-
 class Sha256 {
-  Sha256._();
-
-  Sha256 newIntance() => Sha256._();
-
   Digest convert(List<int> bytes) => Digest(cryptoHashSha256(bytes));
 }

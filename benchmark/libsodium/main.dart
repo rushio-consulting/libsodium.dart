@@ -17,7 +17,7 @@ class LibSodiumSHA256Benchmark extends BaseBenchmark {
 
   // The benchmark code.
   void run() {
-    digest = sha256.convert(bytes);
+    digest = Sha256().convert(bytes);
   }
 
   // Not measured setup code executed prior to the benchmark runs.
@@ -42,7 +42,7 @@ class LibSodiumSHA512Benchmark extends BaseBenchmark {
 
   // The benchmark code.
   void run() {
-    digest = sha512.convert(bytes);
+    digest = Sha512().convert(bytes);
   }
 
   // Not measured setup code executed prior to the benchmark runs.
