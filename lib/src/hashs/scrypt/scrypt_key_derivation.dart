@@ -38,7 +38,7 @@ List<int> scryptKeyDerivation(List<int> password, {List<int> salt}) {
       _salt.elementAt(i).store(salt[i]);
     }
   }
-  final _password = ByteArray.fromCodeUnits(password);
+  final _password = ByteArray<Uint8>.fromCodeUnits(password);
   final _data = cryptoPwhashScryptsalsa208sha256(
       _password.ptr, _password.length,
       salt: _salt);

@@ -11,7 +11,7 @@ class ByteArray<T extends NativeType> {
         assert(length != null);
 
   factory ByteArray.fromCodeUnits(List<int> codeUnits) {
-    final ptr = allocate(count: codeUnits.length);
+    final ptr = allocate<T>(count: codeUnits.length);
     for (int i = 0; i < codeUnits.length; i++) {
       ptr.elementAt(i).store(codeUnits[i]);
     }

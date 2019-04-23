@@ -10,10 +10,10 @@ Pointer<Uint8> nativeCryptoHashSha256(Pointer<Uint8> bytes, int length) =>
         bindings.crypto_hash_sha256);
 
 List<int> cryptoHashSha256(List<int> codeUnits) {
-  var byteArray = ByteArray.fromCodeUnits(codeUnits);
+  var byteArray = ByteArray<Uint8>.fromCodeUnits(codeUnits);
   final out = nativeCryptoHashSha256(byteArray.ptr, codeUnits.length);
   byteArray.ptr.free();
-  byteArray = ByteArray(out, bindings.crypto_hash_sha256_bytes());
+  byteArray = ByteArray<Uint8>(out, bindings.crypto_hash_sha256_bytes());
   final bytes = byteArray.bytes;
   byteArray.ptr.free();
   out.free();

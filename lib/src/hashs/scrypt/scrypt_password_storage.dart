@@ -43,8 +43,8 @@ int cryptoPwhashScryptsalsa208sha256StrVerify(
         str, password, passwordLength);
 
 int scryptPasswordStorageVerify(List<int> hashedPassword, List<int> password) {
-  final cHashedPassword = ByteArray.fromCodeUnits(hashedPassword);
-  final cPassword = ByteArray.fromCodeUnits(password);
+  final cHashedPassword = ByteArray<Uint8>.fromCodeUnits(hashedPassword);
+  final cPassword = ByteArray<Uint8>.fromCodeUnits(password);
   final result = cryptoPwhashScryptsalsa208sha256StrVerify(
       cHashedPassword.ptr, cPassword.ptr, password.length);
   cHashedPassword.ptr.free();

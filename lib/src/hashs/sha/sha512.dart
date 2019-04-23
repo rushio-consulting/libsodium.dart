@@ -10,10 +10,10 @@ Pointer<Uint8> nativeCryptoHashSha512(Pointer<Uint8> bytes, int length) =>
         bindings.crypto_hash_sha512);
 
 List<int> cryptoHashSha512(List<int> codeUnits) {
-  var bytesArray = ByteArray.fromCodeUnits(codeUnits);
+  var bytesArray = ByteArray<Uint8>.fromCodeUnits(codeUnits);
   final out = nativeCryptoHashSha512(bytesArray.ptr, codeUnits.length);
   bytesArray.ptr.free();
-  bytesArray = ByteArray(out, bindings.crypto_hash_sha512_bytes());
+  bytesArray = ByteArray<Uint8>(out, bindings.crypto_hash_sha512_bytes());
   final bytes = bytesArray.bytes;
   bytesArray.ptr.free();
   out.free();
