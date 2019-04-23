@@ -87,9 +87,38 @@ class LibSodiumSHA512FFIOnlyBenchmark extends BaseBenchmark {
   }
 }
 
+class LibSodiumScryptPasswordStorageBenchmark extends BaseBenchmark {
+  List<int> units;
+  LibSodiumScryptPasswordStorageBenchmark()
+      : super("LibSodiumScryptPasswordStorageBenchmark");
+
+  static void main() {
+    new LibSodiumScryptPasswordStorageBenchmark().report();
+  }
+
+  // The benchmark code.
+  void run() {
+    //  ignore: invalid_use_of_visible_for_testing_member
+    digest = Scrypt().passwordStorage(units);
+  }
+
+  // Not measured setup code executed prior to the benchmark runs.
+  void setup() {
+    sodiumInit(libPath: '../');
+    units = Utf8Encoder().convert(dataToEncrypt);
+    super.setup();
+  }
+
+  // Not measures teardown code executed after the benchark runs.
+  void teardown() {
+    super.teardown();
+  }
+}
+
 main() {
   // Run TemplateBenchmark
   LibSodiumSHA256Benchmark.main();
   LibSodiumSHA512Benchmark.main();
   LibSodiumSHA512FFIOnlyBenchmark.main();
+  LibSodiumScryptPasswordStorageBenchmark.main();
 }
