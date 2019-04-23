@@ -8,19 +8,21 @@ Pointer<Uint8> cryptoPwhashScryptsalsa208sha256(
     Pointer<Uint8> password, int passwordLength,
     {Pointer<Uint8> salt}) {
   final key = allocate<Uint8>(count: bindings.crypto_box_seedbytes());
+  Pointer<Uint8> _salt;
   if (salt == null) {
-    salt =
-        generateSalt(bindings.crypto_pwhash_scryptsalsa208sha256_saltbytes());
+    _salt = nativeGenerateSalt(
+        bindings.crypto_pwhash_scryptsalsa208sha256_saltbytes());
   }
   bindings.crypto_pwhash_scryptsalsa208sha256(
     key,
     bindings.crypto_box_seedbytes(),
     password,
     passwordLength,
-    salt,
+    salt ?? _salt,
     bindings.crypto_pwhash_scryptsalsa208sha256_opslimit_interactive(),
     bindings.crypto_pwhash_scryptsalsa208sha256_memlimit_interactive(),
   );
+  _salt?.free();
   return key;
 }
 

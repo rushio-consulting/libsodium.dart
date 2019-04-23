@@ -23,6 +23,7 @@ Pointer<Uint8> cryptoPwhashScryptsalsa208sha256Str(
 List<int> scryptPasswordStorage(List<int> password) {
   final p = CString.fromCodeUnits(password);
   final _data = cryptoPwhashScryptsalsa208sha256Str(p.ptr, password.length);
+  p.ptr.free();
   if (_data == null) {
     return null;
   }
