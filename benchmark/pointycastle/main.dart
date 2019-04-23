@@ -1,4 +1,3 @@
-
 import 'dart:convert';
 
 import 'package:convert/convert.dart';
@@ -60,7 +59,6 @@ class PointyCastleSHA512Benchmark extends BaseBenchmark {
     super.teardown();
   }
 }
-
 
 main() {
   // Run TemplateBenchmark

@@ -27,6 +27,10 @@ Pointer<Uint8> cryptoPwhashScryptsalsa208sha256(
 }
 
 List<int> scryptKeyDerivation(List<int> password, {List<int> salt}) {
+  if (salt.length != bindings.crypto_pwhash_scryptsalsa208sha256_saltbytes()) {
+    throw ArgumentError(
+        'salt length must be equal to ${bindings.crypto_pwhash_scryptsalsa208sha256_saltbytes()}');
+  }
   Pointer<Uint8> _salt;
   if (salt != null) {
     _salt = allocate<Uint8>(count: salt.length);
