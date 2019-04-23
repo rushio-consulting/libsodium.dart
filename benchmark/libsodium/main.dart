@@ -1,6 +1,8 @@
 import 'dart:convert';
 
 import 'package:libsodium/libsodium.dart';
+
+import 'package:libsodium/src/hashs/sha/sha512.dart';
 import 'package:libsodium/src/ffi/cstring.dart';
 
 import '../common/base_test.dart';
@@ -15,7 +17,7 @@ class LibSodiumSHA256Benchmark extends BaseBenchmark {
 
   // The benchmark code.
   void run() {
-    digest = cryptoHashSha256(bytes);
+    digest = sha256.convert(bytes);
   }
 
   // Not measured setup code executed prior to the benchmark runs.
@@ -40,7 +42,7 @@ class LibSodiumSHA512Benchmark extends BaseBenchmark {
 
   // The benchmark code.
   void run() {
-    digest = cryptoHashSha512(bytes);
+    digest = sha512.convert(bytes);
   }
 
   // Not measured setup code executed prior to the benchmark runs.
