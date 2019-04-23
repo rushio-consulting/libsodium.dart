@@ -98,7 +98,6 @@ class LibSodiumScryptPasswordStorageBenchmark extends BaseBenchmark {
 
   // The benchmark code.
   void run() {
-    //  ignore: invalid_use_of_visible_for_testing_member
     digest = Scrypt().passwordStorage(units);
   }
 
