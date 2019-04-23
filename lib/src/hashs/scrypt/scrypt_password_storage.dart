@@ -1,6 +1,6 @@
 import 'dart:ffi';
 
-import 'package:libsodium/src/ffi/cstring.dart';
+import 'package:libsodium/src/ffi/byte_array.dart';
 import 'package:libsodium/src/init.dart';
 
 Pointer<Uint8> cryptoPwhashScryptsalsa208sha256Str(
@@ -21,7 +21,7 @@ Pointer<Uint8> cryptoPwhashScryptsalsa208sha256Str(
 }
 
 List<int> scryptPasswordStorage(List<int> password) {
-  final p = CString.fromCodeUnits(password);
+  final p = ByteArray.fromCodeUnits(password);
   final _data = cryptoPwhashScryptsalsa208sha256Str(p.ptr, password.length);
   p.ptr.free();
   if (_data == null) {
@@ -43,8 +43,8 @@ int cryptoPwhashScryptsalsa208sha256StrVerify(
         str, password, passwordLength);
 
 int scryptPasswordStorageVerify(List<int> hashedPassword, List<int> password) {
-  final cHashedPassword = CString.fromCodeUnits(hashedPassword);
-  final cPassword = CString.fromCodeUnits(password);
+  final cHashedPassword = ByteArray.fromCodeUnits(hashedPassword);
+  final cPassword = ByteArray.fromCodeUnits(password);
   final result = cryptoPwhashScryptsalsa208sha256StrVerify(
       cHashedPassword.ptr, cPassword.ptr, password.length);
   cHashedPassword.ptr.free();

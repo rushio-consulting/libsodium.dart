@@ -1,6 +1,6 @@
 import 'dart:ffi';
 
-import 'package:libsodium/src/ffi/cstring.dart';
+import 'package:libsodium/src/ffi/byte_array.dart';
 import 'package:libsodium/src/init.dart';
 import 'package:libsodium/src/utils/generate_salt.dart';
 
@@ -38,9 +38,9 @@ List<int> scryptKeyDerivation(List<int> password, {List<int> salt}) {
       _salt.elementAt(i).store(salt[i]);
     }
   }
-  final _password = CString.fromCodeUnits(password);
+  final _password = ByteArray.fromCodeUnits(password);
   final _data = cryptoPwhashScryptsalsa208sha256(
-      _password.ptr, _password.codeUnits.length,
+      _password.ptr, _password.length,
       salt: _salt);
   final d = List<int>(bindings.crypto_box_seedbytes());
   for (var i = 0; i < bindings.crypto_box_seedbytes(); i++) {

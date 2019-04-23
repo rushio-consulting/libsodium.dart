@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:libsodium/libsodium.dart';
 
 import 'package:libsodium/src/hashs/sha/sha512.dart';
-import 'package:libsodium/src/ffi/cstring.dart';
+import 'package:libsodium/src/ffi/byte_array.dart';
 
 import '../common/base_test.dart';
 import '../common/constant.dart'; // for the utf8.encode method
@@ -59,7 +59,7 @@ class LibSodiumSHA512Benchmark extends BaseBenchmark {
 }
 
 class LibSodiumSHA512FFIOnlyBenchmark extends BaseBenchmark {
-  CString data;
+  ByteArray data;
   List<int> units;
   LibSodiumSHA512FFIOnlyBenchmark() : super("LibSodiumSHA512FFIOnly");
 
@@ -77,7 +77,7 @@ class LibSodiumSHA512FFIOnlyBenchmark extends BaseBenchmark {
   void setup() {
     sodiumInit(libPath: '../');
     units = Utf8Encoder().convert(dataToEncrypt);
-    data = CString.fromUtf8(dataToEncrypt);
+    data = ByteArray.fromCodeUnits(units);
     super.setup();
   }
 
