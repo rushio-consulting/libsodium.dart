@@ -65,178 +65,96 @@ class CArrayIterator<NT extends NativeType, DT extends num>
   }
 }
 
-class Uint8CArray extends CArray<Uint8, int> {
+class _IntCArray<NT extends NativeType> extends CArray<NT, int> {
+  _IntCArray(int length) : super(length);
+
+  _IntCArray.from(Iterable<int> bytes) : super.from(bytes);
+
+  _IntCArray.fromPointer(Pointer<NT> ptr, int length)
+      : super.fromPointer(ptr, length);
+
+  @override
+  int operator [](int index) {
+    return ptr.elementAt(index).load<int>();
+  }
+
+  @override
+  void operator []=(int index, int value) {
+    return ptr.elementAt(index).store(value);
+  }
+
+  @override
+  String toString() => hex.encode(bytes);
+}
+
+class Uint8CArray extends _IntCArray<Uint8> {
   Uint8CArray(int length) : super(length);
 
   Uint8CArray.from(Iterable<int> bytes) : super.from(bytes);
 
   Uint8CArray.fromPointer(Pointer<Uint8> ptr, int length)
       : super.fromPointer(ptr, length);
-
-  @override
-  int operator [](int index) {
-    return ptr.elementAt(index).load<int>();
-  }
-
-  @override
-  void operator []=(int index, int value) {
-    return ptr.elementAt(index).store(value);
-  }
-
-  @override
-  String toString() => hex.encode(bytes);
 }
 
-class Uint16CArray extends CArray<Uint16, int> {
+class Uint16CArray extends _IntCArray<Uint16> {
   Uint16CArray(int length) : super(length);
 
   Uint16CArray.from(Iterable<int> bytes) : super.from(bytes);
 
   Uint16CArray.fromPointer(Pointer<Uint16> ptr, int length)
       : super.fromPointer(ptr, length);
-
-  @override
-  int operator [](int index) {
-    return ptr.elementAt(index).load<int>();
-  }
-
-  @override
-  void operator []=(int index, int value) {
-    return ptr.elementAt(index).store(value);
-  }
-
-  @override
-  String toString() => hex.encode(bytes);
 }
 
-class Uint32CArray extends CArray<Uint32, int> {
+class Uint32CArray extends _IntCArray<Uint32> {
   Uint32CArray(int length) : super(length);
 
   Uint32CArray.from(Iterable<int> bytes) : super.from(bytes);
 
   Uint32CArray.fromPointer(Pointer<Uint32> ptr, int length)
       : super.fromPointer(ptr, length);
-
-  @override
-  int operator [](int index) {
-    return ptr.elementAt(index).load<int>();
-  }
-
-  @override
-  void operator []=(int index, int value) {
-    return ptr.elementAt(index).store(value);
-  }
-
-  @override
-  String toString() => hex.encode(bytes);
 }
 
-class Uint64CArray extends CArray<Uint64, int> {
+class Uint64CArray extends _IntCArray<Uint64> {
   Uint64CArray(int length) : super(length);
 
   Uint64CArray.from(Iterable<int> bytes) : super.from(bytes);
 
   Uint64CArray.fromPointer(Pointer<Uint64> ptr, int length)
       : super.fromPointer(ptr, length);
-
-  @override
-  int operator [](int index) {
-    return ptr.elementAt(index).load<int>();
-  }
-
-  @override
-  void operator []=(int index, int value) {
-    return ptr.elementAt(index).store(value);
-  }
-
-  @override
-  String toString() => hex.encode(bytes);
 }
 
-class Int8CArray extends CArray<Int8, int> {
+class Int8CArray extends _IntCArray<Int8> {
   Int8CArray(int length) : super(length);
 
   Int8CArray.from(Iterable<int> bytes) : super.from(bytes);
 
   Int8CArray.fromPointer(Pointer<Int8> ptr, int length)
       : super.fromPointer(ptr, length);
-
-  @override
-  int operator [](int index) {
-    return ptr.elementAt(index).load<int>();
-  }
-
-  @override
-  void operator []=(int index, int value) {
-    return ptr.elementAt(index).store(value);
-  }
-
-  @override
-  String toString() => hex.encode(bytes);
 }
 
-class Int16CArray extends CArray<Int16, int> {
+class Int16CArray extends _IntCArray<Int16> {
   Int16CArray(int length) : super(length);
 
   Int16CArray.from(Iterable<int> bytes) : super.from(bytes);
 
   Int16CArray.fromPointer(Pointer<Int16> ptr, int length)
       : super.fromPointer(ptr, length);
-
-  @override
-  int operator [](int index) {
-    return ptr.elementAt(index).load<int>();
-  }
-
-  @override
-  void operator []=(int index, int value) {
-    return ptr.elementAt(index).store(value);
-  }
-
-  @override
-  String toString() => hex.encode(bytes);
 }
 
-class Int32CArray extends CArray<Int32, int> {
+class Int32CArray extends _IntCArray<Int32> {
   Int32CArray(int length) : super(length);
 
   Int32CArray.from(Iterable<int> bytes) : super.from(bytes);
 
   Int32CArray.fromPointer(Pointer<Int32> ptr, int length)
       : super.fromPointer(ptr, length);
-
-  @override
-  int operator [](int index) {
-    return ptr.elementAt(index).load<int>();
-  }
-
-  @override
-  void operator []=(int index, int value) {
-    return ptr.elementAt(index).store(value);
-  }
-
-  @override
-  String toString() => hex.encode(bytes);
 }
 
-class Int64CArray extends CArray<Int64, int> {
+class Int64CArray extends _IntCArray<Int64> {
   Int64CArray(int length) : super(length);
 
   Int64CArray.from(Iterable<int> bytes) : super.from(bytes);
 
   Int64CArray.fromPointer(Pointer<Int64> ptr, int length)
       : super.fromPointer(ptr, length);
-
-  @override
-  int operator [](int index) {
-    return ptr.elementAt(index).load<int>();
-  }
-
-  @override
-  void operator []=(int index, int value) {
-    return ptr.elementAt(index).store(value);
-  }
-
-  @override
-  String toString() => hex.encode(bytes);
 }
