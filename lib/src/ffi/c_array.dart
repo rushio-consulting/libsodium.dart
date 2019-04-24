@@ -65,23 +65,13 @@ class CArrayIterator<NT extends NativeType, DT extends num>
   }
 }
 
-class _IntCArray<NT extends NativeType> extends CArray<NT, int> {
+abstract class _IntCArray<NT extends NativeType> extends CArray<NT, int> {
   _IntCArray(int length) : super(length);
 
   _IntCArray.from(Iterable<int> bytes) : super.from(bytes);
 
   _IntCArray.fromPointer(Pointer<NT> ptr, int length)
       : super.fromPointer(ptr, length);
-
-  @override
-  int operator [](int index) {
-    return ptr.elementAt(index).load<int>();
-  }
-
-  @override
-  void operator []=(int index, int value) {
-    return ptr.elementAt(index).store(value);
-  }
 
   @override
   String toString() => hex.encode(bytes);
@@ -94,6 +84,16 @@ class Uint8CArray extends _IntCArray<Uint8> {
 
   Uint8CArray.fromPointer(Pointer<Uint8> ptr, int length)
       : super.fromPointer(ptr, length);
+
+  @override
+  int operator [](int index) {
+    return ptr.elementAt(index).load<int>();
+  }
+
+  @override
+  void operator []=(int index, int value) {
+    return ptr.elementAt(index).store(value);
+  }
 }
 
 class Uint16CArray extends _IntCArray<Uint16> {
@@ -103,6 +103,16 @@ class Uint16CArray extends _IntCArray<Uint16> {
 
   Uint16CArray.fromPointer(Pointer<Uint16> ptr, int length)
       : super.fromPointer(ptr, length);
+
+  @override
+  int operator [](int index) {
+    return ptr.elementAt(index).load<int>();
+  }
+
+  @override
+  void operator []=(int index, int value) {
+    return ptr.elementAt(index).store(value);
+  }
 }
 
 class Uint32CArray extends _IntCArray<Uint32> {
@@ -112,6 +122,16 @@ class Uint32CArray extends _IntCArray<Uint32> {
 
   Uint32CArray.fromPointer(Pointer<Uint32> ptr, int length)
       : super.fromPointer(ptr, length);
+
+  @override
+  int operator [](int index) {
+    return ptr.elementAt(index).load<int>();
+  }
+
+  @override
+  void operator []=(int index, int value) {
+    return ptr.elementAt(index).store(value);
+  }
 }
 
 class Uint64CArray extends _IntCArray<Uint64> {
@@ -121,6 +141,16 @@ class Uint64CArray extends _IntCArray<Uint64> {
 
   Uint64CArray.fromPointer(Pointer<Uint64> ptr, int length)
       : super.fromPointer(ptr, length);
+
+  @override
+  int operator [](int index) {
+    return ptr.elementAt(index).load<int>();
+  }
+
+  @override
+  void operator []=(int index, int value) {
+    return ptr.elementAt(index).store(value);
+  }
 }
 
 class Int8CArray extends _IntCArray<Int8> {
@@ -130,6 +160,16 @@ class Int8CArray extends _IntCArray<Int8> {
 
   Int8CArray.fromPointer(Pointer<Int8> ptr, int length)
       : super.fromPointer(ptr, length);
+
+  @override
+  int operator [](int index) {
+    return ptr.elementAt(index).load<int>();
+  }
+
+  @override
+  void operator []=(int index, int value) {
+    return ptr.elementAt(index).store(value);
+  }
 }
 
 class Int16CArray extends _IntCArray<Int16> {
@@ -139,6 +179,16 @@ class Int16CArray extends _IntCArray<Int16> {
 
   Int16CArray.fromPointer(Pointer<Int16> ptr, int length)
       : super.fromPointer(ptr, length);
+
+  @override
+  int operator [](int index) {
+    return ptr.elementAt(index).load<int>();
+  }
+
+  @override
+  void operator []=(int index, int value) {
+    return ptr.elementAt(index).store(value);
+  }
 }
 
 class Int32CArray extends _IntCArray<Int32> {
@@ -148,6 +198,16 @@ class Int32CArray extends _IntCArray<Int32> {
 
   Int32CArray.fromPointer(Pointer<Int32> ptr, int length)
       : super.fromPointer(ptr, length);
+
+  @override
+  int operator [](int index) {
+    return ptr.elementAt(index).load<int>();
+  }
+
+  @override
+  void operator []=(int index, int value) {
+    return ptr.elementAt(index).store(value);
+  }
 }
 
 class Int64CArray extends _IntCArray<Int64> {
@@ -157,4 +217,14 @@ class Int64CArray extends _IntCArray<Int64> {
 
   Int64CArray.fromPointer(Pointer<Int64> ptr, int length)
       : super.fromPointer(ptr, length);
+
+  @override
+  int operator [](int index) {
+    return ptr.elementAt(index).load<int>();
+  }
+
+  @override
+  void operator []=(int index, int value) {
+    return ptr.elementAt(index).store(value);
+  }
 }
