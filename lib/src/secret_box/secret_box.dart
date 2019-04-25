@@ -15,7 +15,8 @@ class SecretBox {
 
   Digest easy(List<int> message, List<int> nonce, List<int> key) {
     assert(key != null && key.length == bindings.crypto_secretbox_keybytes());
-    assert(nonce != null && nonce.length <= bindings.crypto_secretbox_noncebytes();
+    assert(nonce != null &&
+        nonce.length <= bindings.crypto_secretbox_noncebytes());
     final _nonce = <int>[]..addAll(nonce);
     while (_nonce.length < bindings.crypto_secretbox_noncebytes()) {
       _nonce.add(48);
@@ -38,7 +39,8 @@ class SecretBox {
   Digest openEasy(
       int messageLength, List<int> cipherText, List<int> nonce, List<int> key) {
     assert(key != null && key.length == bindings.crypto_secretbox_keybytes());
-    assert(nonce != null && nonce.length <= bindings.crypto_secretbox_noncebytes();
+    assert(nonce != null &&
+        nonce.length <= bindings.crypto_secretbox_noncebytes());
     final _nonce = <int>[]..addAll(nonce);
     while (_nonce.length < bindings.crypto_secretbox_noncebytes()) {
       _nonce.add(48);
