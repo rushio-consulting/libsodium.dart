@@ -3,6 +3,8 @@ import 'package:libsodium/src/init.dart';
 import 'package:libsodium/src/utils/digest.dart';
 
 class SecretBox {
+  final nonceLenght = bindings.crypto_secretbox_noncebytes();
+
   Digest keygen() {
     final key = Uint8CArray(bindings.crypto_secretbox_keybytes());
     bindings.crypto_secretbox_keygen(key.ptr);
@@ -41,6 +43,7 @@ class SecretBox {
         cipherCArray.ptr, cipherText.length, nonceCArray.ptr, keyCArray.ptr);
     if (result != 0) {
       decrypted.free();
+      print('result == 0');
       return null;
     }
     final digest = Digest(decrypted.bytes);
