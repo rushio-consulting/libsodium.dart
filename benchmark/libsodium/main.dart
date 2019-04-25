@@ -1,10 +1,9 @@
 import 'dart:convert';
-import 'dart:ffi';
 
 import 'package:libsodium/libsodium.dart';
 
 import 'package:libsodium/src/hashs/sha/sha512.dart';
-import 'package:libsodium/src/ffi/byte_array.dart';
+import 'package:libsodium/src/ffi/c_array.dart';
 
 import '../common/base_test.dart';
 import '../common/constant.dart'; // for the utf8.encode method
@@ -60,7 +59,7 @@ class LibSodiumSHA512Benchmark extends BaseBenchmark {
 }
 
 class LibSodiumSHA512FFIOnlyBenchmark extends BaseBenchmark {
-  ByteArray<Uint8> data;
+  Uint8CArray data;
   List<int> units;
   LibSodiumSHA512FFIOnlyBenchmark() : super("LibSodiumSHA512FFIOnly");
 
@@ -78,7 +77,7 @@ class LibSodiumSHA512FFIOnlyBenchmark extends BaseBenchmark {
   void setup() {
     sodiumInit(libPath: '../');
     units = Utf8Encoder().convert(dataToEncrypt);
-    data = ByteArray<Uint8>.fromCodeUnits(units);
+    data = Uint8CArray.from(units);
     super.setup();
   }
 
