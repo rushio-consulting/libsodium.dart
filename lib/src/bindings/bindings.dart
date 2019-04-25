@@ -54,6 +54,28 @@ class SodiumBindings {
   int Function(Pointer<Uint8> str, Pointer<Uint8> password, int passwordLength)
       crypto_pwhash_scryptsalsa208sha256_str_verify;
 
+  int Function() crypto_secretbox_macbytes;
+
+  int Function() crypto_secretbox_noncebytes;
+
+  int Function() crypto_secretbox_keybytes;
+
+  void Function(Pointer<Uint8> key) crypto_secretbox_keygen;
+
+  int Function(
+      Pointer<Uint8> cipherText,
+      Pointer<Uint8> message,
+      int messageLength,
+      Pointer<Uint8> nonce,
+      Pointer<Uint8> key) crypto_secretbox_easy;
+
+  int Function(
+      Pointer<Uint8> decrypted,
+      Pointer<Uint8> cipherText,
+      int cipherLength,
+      Pointer<Uint8> nonce,
+      Pointer<Uint8> key) crypto_secretbox_open_easy;
+
   SodiumBindings({String path = './'}) {
     sodium = dlopenPlatformSpecific('sodium', path: path);
     sodium_init = sodium
@@ -124,6 +146,31 @@ class SodiumBindings {
                 NativeFunction<
                     crypto_pwhash_scryptsalsa208sha256_str_verify_t>>(
             'crypto_pwhash_scryptsalsa208sha256_str_verify')
+        .asFunction();
+
+    crypto_secretbox_macbytes = sodium
+        .lookup<NativeFunction<crypto_secretbox_macbytes_t>>(
+            'crypto_secretbox_macbytes')
+        .asFunction();
+    crypto_secretbox_noncebytes = sodium
+        .lookup<NativeFunction<crypto_secretbox_noncebytes_t>>(
+            'crypto_secretbox_noncebytes')
+        .asFunction();
+    crypto_secretbox_keybytes = sodium
+        .lookup<NativeFunction<crypto_secretbox_keybytes_t>>(
+            'crypto_secretbox_keybytes')
+        .asFunction();
+    crypto_secretbox_keygen = sodium
+        .lookup<NativeFunction<crypto_secretbox_keygen_t>>(
+            'crypto_secretbox_keygen')
+        .asFunction();
+    crypto_secretbox_easy = sodium
+        .lookup<NativeFunction<crypto_secretbox_easy_t>>(
+            'crypto_secretbox_easy')
+        .asFunction();
+    crypto_secretbox_open_easy = sodium
+        .lookup<NativeFunction<crypto_secretbox_open_easy_t>>(
+            'crypto_secretbox_open_easy')
         .asFunction();
   }
 }
