@@ -12,7 +12,7 @@ void main() {
   final nonce = 'monsuperpassword'.codeUnits;
   final message = 'Hello world !';
   print('key = ${key.bytes}');
-  print('nonce = ${nonce.bytes}');
+  print('nonce = $nonce');
   print('messageLength = ${message.length}');
 
   final cipherText = secretBox.easy(message.codeUnits, nonce, key.bytes);
