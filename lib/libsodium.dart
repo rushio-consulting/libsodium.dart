@@ -1,6 +1,7 @@
 library libsodium;
 
 export 'package:libsodium/src/init.dart';
+export 'package:libsodium/src/utils/digest.dart';
 export 'package:libsodium/src/utils/utils.dart';
 export 'package:libsodium/src/hashs/sha/sha256.dart' show Sha256;
 export 'package:libsodium/src/hashs/sha/sha512.dart' show Sha512;

@@ -8,7 +8,8 @@ void main() {
   final utils = Utils();
   final secretBox = SecretBox();
   final key = secretBox.keygen();
-  final nonce = utils.randomBytesBuf(secretBox.nonceLenght);
+  // final nonce = utils.randomBytesBuf(secretBox.nonceLenght);
+  final nonce = Digest('monsuperpassword'.codeUnits);
   final message = 'Hello world !';
   print('key = ${key.bytes}');
   print('nonce = ${nonce.bytes}');
