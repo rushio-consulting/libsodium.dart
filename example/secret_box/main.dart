@@ -9,17 +9,17 @@ void main() {
   final secretBox = SecretBox();
   final key = secretBox.keygen();
   // final nonce = utils.randomBytesBuf(secretBox.nonceLenght);
-  final nonce = 'monsuperpassword'.codeUnits;
+  final nonce = Digest('ab'.codeUnits);
   final message = 'Hello world !';
-  print('key = ${key.bytes}');
+  print('key = $key');
   print('nonce = $nonce');
   print('messageLength = ${message.length}');
 
-  final cipherText = secretBox.easy(message.codeUnits, nonce, key.bytes);
+  final cipherText = secretBox.easy(message.codeUnits, nonce.bytes, key.bytes);
   print('cipherText = $cipherText');
 
-  final decryptedText =
-      secretBox.openEasy(message.length, cipherText.bytes, nonce, key.bytes);
+  final decryptedText = secretBox.openEasy(
+      message.length, cipherText.bytes, nonce.bytes, key.bytes);
   final decryptedMessage = utf8.decode(decryptedText.bytes);
   print('decryptedMessage = $decryptedMessage');
 }
