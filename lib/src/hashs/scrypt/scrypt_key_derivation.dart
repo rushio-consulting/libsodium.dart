@@ -2,7 +2,7 @@ import 'dart:ffi';
 
 import 'package:libsodium/src/ffi/c_array.dart';
 import 'package:libsodium/src/init.dart';
-import 'package:libsodium/src/utils/generate_salt.dart';
+import 'package:libsodium/src/utils/native_random_bytes_buf.dart';
 
 Pointer<Uint8> cryptoPwhashScryptsalsa208sha256(
     Pointer<Uint8> password, int passwordLength,
@@ -10,7 +10,7 @@ Pointer<Uint8> cryptoPwhashScryptsalsa208sha256(
   final key = allocate<Uint8>(count: bindings.crypto_box_seedbytes());
   Pointer<Uint8> _salt;
   if (salt == null) {
-    _salt = nativeGenerateSalt(
+    _salt = nativeRandomBytesBuf(
         bindings.crypto_pwhash_scryptsalsa208sha256_saltbytes());
   }
   bindings.crypto_pwhash_scryptsalsa208sha256(

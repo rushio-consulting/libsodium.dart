@@ -53,3 +53,25 @@ typedef crypto_pwhash_scryptsalsa208sha256_str_t = Int32 Function(
 
 typedef crypto_pwhash_scryptsalsa208sha256_str_verify_t = Int32 Function(
     Pointer<Uint8> str, Pointer<Uint8> password, Uint64 passwordLength);
+
+typedef crypto_secretbox_macbytes_t = Int32 Function();
+
+typedef crypto_secretbox_noncebytes_t = Int32 Function();
+
+typedef crypto_secretbox_keybytes_t = Int32 Function();
+
+typedef crypto_secretbox_keygen_t = Void Function(Pointer<Uint8> key);
+
+typedef crypto_secretbox_easy_t = Int32 Function(
+    Pointer<Uint8> cipherText,
+    Pointer<Uint8> message,
+    Uint32 messageLength,
+    Pointer<Uint8> nonce,
+    Pointer<Uint8> key);
+
+typedef crypto_secretbox_open_easy_t = Int32 Function(
+    Pointer<Uint8> decrypted,
+    Pointer<Uint8> cipherText,
+    Uint32 cipherLength,
+    Pointer<Uint8> nonce,
+    Pointer<Uint8> key);
