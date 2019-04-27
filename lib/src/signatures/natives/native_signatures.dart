@@ -1,6 +1,29 @@
 import 'dart:ffi';
 
-typedef sodium_init_t = Int32 Function();
+typedef Int32 NativeSodiumInitSignature();
+
+//  utils
+typedef Void NativeRandomBytesBufferSignature(Pointer<Uint8> salt, Uint8 size);
+
+//  secretbox native signature
+typedef Int32 NativeSecretBoxMacBytesSignature();
+typedef Int32 NativeSecretBoxNonceBytesSignature();
+typedef Int32 NativeSecretBoxKeyBytesSignature();
+typedef Void NativeSecretBoxKeyGenSignature(Pointer<Uint8> key);
+typedef Int32 NativeSecretBoxEasySignature(
+  Pointer<Uint8> cipherText,
+  Pointer<Uint8> message,
+  Uint32 messageLength,
+  Pointer<Uint8> nonce,
+  Pointer<Uint8> key,
+);
+typedef Int32 NativeSecretBoxOpenEasySignature(
+  Pointer<Uint8> decrypted,
+  Pointer<Uint8> cipherText,
+  Uint32 cipherLength,
+  Pointer<Uint8> nonce,
+  Pointer<Uint8> key,
+);
 
 typedef crypto_hash_sha256_t = Void Function(
     Pointer<Uint8> out, Pointer<Uint8> message, Int32 messageLength);
@@ -53,25 +76,3 @@ typedef crypto_pwhash_scryptsalsa208sha256_str_t = Int32 Function(
 
 typedef crypto_pwhash_scryptsalsa208sha256_str_verify_t = Int32 Function(
     Pointer<Uint8> str, Pointer<Uint8> password, Uint64 passwordLength);
-
-typedef crypto_secretbox_macbytes_t = Int32 Function();
-
-typedef crypto_secretbox_noncebytes_t = Int32 Function();
-
-typedef crypto_secretbox_keybytes_t = Int32 Function();
-
-typedef crypto_secretbox_keygen_t = Void Function(Pointer<Uint8> key);
-
-typedef crypto_secretbox_easy_t = Int32 Function(
-    Pointer<Uint8> cipherText,
-    Pointer<Uint8> message,
-    Uint32 messageLength,
-    Pointer<Uint8> nonce,
-    Pointer<Uint8> key);
-
-typedef crypto_secretbox_open_easy_t = Int32 Function(
-    Pointer<Uint8> decrypted,
-    Pointer<Uint8> cipherText,
-    Uint32 cipherLength,
-    Pointer<Uint8> nonce,
-    Pointer<Uint8> key);
