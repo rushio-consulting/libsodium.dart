@@ -51,33 +51,6 @@ class SodiumBindings {
   PwHashScryptSalsa208Sha256StrVerifyBindings
       pwHashScryptSalsa208Sha256StrVerifyBindings;
 
-  // int Function(
-  //   Pointer<Uint8> key,
-  //   int sizeOfKey,
-  //   Pointer<Uint8> password,
-  //   int passwordLength,
-  //   Pointer<Uint8> salt,
-  //   int opsLimitInteractive,
-  //   int memeLimitInteractive,
-  // ) crypto_pwhash_scryptsalsa208sha256;
-
-  // int Function() crypto_pwhash_scryptsalsa208sha256_strbytes;
-
-  // int Function() crypto_pwhash_scryptsalsa208sha256_opslimit_sensitive;
-
-  // int Function() crypto_pwhash_scryptsalsa208sha256_memlimit_sensitive;
-
-  // int Function(
-  //   Pointer<Uint8> out,
-  //   Pointer<Uint8> password,
-  //   int passwordLength,
-  //   int opLimitSensitive,
-  //   int memLimitSensitive,
-  // ) crypto_pwhash_scryptsalsa208sha256_str;
-
-  // int Function(Pointer<Uint8> str, Pointer<Uint8> password, int passwordLength)
-  //     crypto_pwhash_scryptsalsa208sha256_str_verify;
-
   SodiumBindings({String path = './'}) {
     sodium = dlopenPlatformSpecific('sodium', path: path);
 
@@ -122,61 +95,5 @@ class SodiumBindings {
         PwHashScryptSalsa208Sha256StrBindings(sodium);
     pwHashScryptSalsa208Sha256StrVerifyBindings =
         PwHashScryptSalsa208Sha256StrVerifyBindings(sodium);
-
-    // crypto_pwhash_scryptsalsa208sha256 = sodium
-    //     .lookup<NativeFunction<crypto_pwhash_scryptsalsa208sha256_t>>(
-    //         'crypto_pwhash_scryptsalsa208sha256')
-    //     .asFunction();
-    // crypto_pwhash_scryptsalsa208sha256_strbytes = sodium
-    //     .lookup<NativeFunction<crypto_pwhash_scryptsalsa208sha256_strbytes_t>>(
-    //         'crypto_pwhash_scryptsalsa208sha256_strbytes')
-    //     .asFunction();
-    // crypto_pwhash_scryptsalsa208sha256_opslimit_sensitive = sodium
-    //     .lookup<
-    //             NativeFunction<
-    //                 crypto_pwhash_scryptsalsa208sha256_opslimit_sensitive_t>>(
-    //         'crypto_pwhash_scryptsalsa208sha256_opslimit_sensitive')
-    //     .asFunction();
-    // crypto_pwhash_scryptsalsa208sha256_memlimit_sensitive = sodium
-    //     .lookup<
-    //             NativeFunction<
-    //                 crypto_pwhash_scryptsalsa208sha256_memlimit_sensitive_t>>(
-    //         'crypto_pwhash_scryptsalsa208sha256_memlimit_sensitive')
-    //     .asFunction();
-    // crypto_pwhash_scryptsalsa208sha256_str = sodium
-    //     .lookup<NativeFunction<crypto_pwhash_scryptsalsa208sha256_str_t>>(
-    //         'crypto_pwhash_scryptsalsa208sha256_str')
-    //     .asFunction();
-    // crypto_pwhash_scryptsalsa208sha256_str_verify = sodium
-    //     .lookup<
-    //             NativeFunction<
-    //                 crypto_pwhash_scryptsalsa208sha256_str_verify_t>>(
-    //         'crypto_pwhash_scryptsalsa208sha256_str_verify')
-    //     .asFunction();
-
-    // crypto_secretbox_macbytes = sodium
-    //     .lookup<NativeFunction<crypto_secretbox_macbytes_t>>(
-    //         'crypto_secretbox_macbytes')
-    //     .asFunction();
-    // crypto_secretbox_noncebytes = sodium
-    //     .lookup<NativeFunction<crypto_secretbox_noncebytes_t>>(
-    //         'crypto_secretbox_noncebytes')
-    //     .asFunction();
-    // crypto_secretbox_keybytes = sodium
-    //     .lookup<NativeFunction<crypto_secretbox_keybytes_t>>(
-    //         'crypto_secretbox_keybytes')
-    //     .asFunction();
-    // crypto_secretbox_keygen = sodium
-    //     .lookup<NativeFunction<crypto_secretbox_keygen_t>>(
-    //         'crypto_secretbox_keygen')
-    //     .asFunction();
-    // crypto_secretbox_easy = sodium
-    //     .lookup<NativeFunction<crypto_secretbox_easy_t>>(
-    //         'crypto_secretbox_easy')
-    //     .asFunction();
-    // crypto_secretbox_open_easy = sodium
-    //     .lookup<NativeFunction<crypto_secretbox_open_easy_t>>(
-    //         'crypto_secretbox_open_easy')
-    //     .asFunction();
   }
 }
