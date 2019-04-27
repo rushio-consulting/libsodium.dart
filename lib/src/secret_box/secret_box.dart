@@ -24,7 +24,8 @@ class SecretBox {
     } else if (_nonce.length > bindings.crypto_secretbox_noncebytes()) {
       _nonce = _nonce.sublist(0, bindings.crypto_secretbox_noncebytes());
     }
-    assert(_nonce.length == bindings.crypto_secretbox_noncebytes());
+    assert(_nonce.length == bindings.crypto_secretbox_noncebytes(),
+        'nonce must be equal to ${bindings.crypto_secretbox_noncebytes()}');
     final cipherText =
         Uint8CArray(bindings.crypto_secretbox_macbytes() + message.length);
     final messageCArray = Uint8CArray.from(message);
@@ -52,7 +53,8 @@ class SecretBox {
     } else if (_nonce.length > bindings.crypto_secretbox_noncebytes()) {
       _nonce = _nonce.sublist(0, bindings.crypto_secretbox_noncebytes());
     }
-    assert(_nonce.length == bindings.crypto_secretbox_noncebytes());
+    assert(_nonce.length == bindings.crypto_secretbox_noncebytes(),
+        'nonce must be equal to ${bindings.crypto_secretbox_noncebytes()}');
     final decrypted = Uint8CArray(messageLength);
     final cipherCArray = Uint8CArray.from(cipherText);
     final nonceCArray = Uint8CArray.from(_nonce);
@@ -61,7 +63,6 @@ class SecretBox {
         cipherCArray.ptr, cipherText.length, nonceCArray.ptr, keyCArray.ptr);
     if (result != 0) {
       decrypted.free();
-      print('result == 0');
       return null;
     }
     final digest = Digest(decrypted.bytes);
