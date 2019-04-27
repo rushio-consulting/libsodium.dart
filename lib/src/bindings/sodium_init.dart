@@ -1,12 +1,18 @@
 import 'dart:ffi';
 
 import 'package:libsodium/src/bindings/bindings.dart';
-import 'package:libsodium/src/signatures/dart/dart_signatures.dart';
-import 'package:libsodium/src/signatures/natives/native_signatures.dart';
 
-class SodiumInitBindings
-    extends Bindings<SodiumInitSignature, NativeSodiumInitSignature> {
-  SodiumInitBindings(DynamicLibrary sodium) : super(sodium, 'sodium_init');
+typedef SodiumInitSignature = int Function();
+typedef NativeSodiumInitSignature = Int32 Function();
+
+class SodiumInitBindings extends Bindings<SodiumInitSignature> {
+  SodiumInitBindings(DynamicLibrary sodium) : super('sodium_init') {
+    try {
+      f = sodium
+          .lookup<NativeFunction<NativeSodiumInitSignature>>(functionName)
+          .asFunction();
+    } catch (_) {}
+  }
 
   int call() {
     checkAvailability();

@@ -1,13 +1,22 @@
-// import 'dart:ffi';
+import 'dart:ffi';
 
-// import 'package:libsodium/src/bindings/bindings.dart';
-// import 'package:libsodium/src/signatures/dart/dart_signatures.dart';
-// import 'package:libsodium/src/signatures/natives/native_signatures.dart';
+import 'package:libsodium/src/bindings/bindings.dart';
 
-// class RandomBytesBufferBindings extends Bindings<RandomBytesBufferSignature,
-//     NativeRandomBytesBufferSignature> {
-//   RandomBytesBufferBindings(DynamicLibrary sodium)
-//       : super(sodium, 'randombytes_buf');
+typedef void RandomBytesBufferSignature(Pointer<Uint8> salt, int size);
+typedef Void NativeRandomBytesBufferSignature(Pointer<Uint8> salt, Uint8 size);
 
-//   void call(Pointer<Uint8> salt, int size) => f(salt, size);
-// }
+class RandomBytesBufferBindings extends Bindings<RandomBytesBufferSignature> {
+  RandomBytesBufferBindings(DynamicLibrary sodium) : super('randombytes_buf') {
+    try {
+      f = sodium
+          .lookup<NativeFunction<NativeRandomBytesBufferSignature>>(
+              functionName)
+          .asFunction();
+    } catch (_) {}
+  }
+
+  void call(Pointer<Uint8> salt, int size) {
+    checkAvailability();
+    return f(salt, size);
+  }
+}

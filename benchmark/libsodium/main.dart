@@ -1,127 +1,127 @@
-// import 'dart:convert';
-// import 'dart:io';
+import 'dart:convert';
+import 'dart:io';
 
-// import 'package:libsodium/libsodium.dart';
+import 'package:libsodium/libsodium.dart';
 
-// import 'package:libsodium/src/hashs/sha/sha512.dart';
-// import 'package:libsodium/src/ffi/c_array.dart';
+import 'package:libsodium/src/hashs/sha/sha512.dart';
+import 'package:libsodium/src/ffi/c_array.dart';
 
-// import '../common/base_test.dart';
-// import '../common/constant.dart'; // for the utf8.encode method
+import '../common/base_test.dart';
+import '../common/constant.dart'; // for the utf8.encode method
 
-// class LibSodiumSHA256Benchmark extends BaseBenchmark {
-//   LibSodiumSHA256Benchmark() : super("LibSodiumSHA256");
+class LibSodiumSHA256Benchmark extends BaseBenchmark {
+  LibSodiumSHA256Benchmark() : super("LibSodiumSHA256");
 
-//   static void main() {
-//     new LibSodiumSHA256Benchmark().report();
-//   }
+  static void main() {
+    new LibSodiumSHA256Benchmark().report();
+  }
 
-//   // The benchmark code.
-//   void run() {
-//     digest = Sha256().convert(bytes);
-//   }
+  // The benchmark code.
+  void run() {
+    digest = Sha256().convert(bytes);
+  }
 
-//   // Not measured setup code executed prior to the benchmark runs.
-//   void setup() {
-//     sodiumInit(libPath: '../');
-//     bytes = utf8.encode(dataToEncrypt); // data being hashed
-//     super.setup();
-//   }
+  // Not measured setup code executed prior to the benchmark runs.
+  void setup() {
+    sodiumInit(libPath: '../');
+    bytes = utf8.encode(dataToEncrypt); // data being hashed
+    super.setup();
+  }
 
-//   // Not measures teardown code executed after the benchark runs.
-//   void teardown() {
-//     super.teardown();
-//   }
-// }
+  // Not measures teardown code executed after the benchark runs.
+  void teardown() {
+    super.teardown();
+  }
+}
 
-// class LibSodiumSHA512Benchmark extends BaseBenchmark {
-//   LibSodiumSHA512Benchmark() : super("LibSodiumSHA512");
+class LibSodiumSHA512Benchmark extends BaseBenchmark {
+  LibSodiumSHA512Benchmark() : super("LibSodiumSHA512");
 
-//   static void main() {
-//     new LibSodiumSHA512Benchmark().report();
-//   }
+  static void main() {
+    new LibSodiumSHA512Benchmark().report();
+  }
 
-//   // The benchmark code.
-//   void run() {
-//     digest = Sha512().convert(bytes);
-//   }
+  // The benchmark code.
+  void run() {
+    digest = Sha512().convert(bytes);
+  }
 
-//   // Not measured setup code executed prior to the benchmark runs.
-//   void setup() {
-//     sodiumInit(libPath: '../');
-//     bytes = utf8.encode(dataToEncrypt); // data being hashed
-//     super.setup();
-//   }
+  // Not measured setup code executed prior to the benchmark runs.
+  void setup() {
+    sodiumInit(libPath: '../');
+    bytes = utf8.encode(dataToEncrypt); // data being hashed
+    super.setup();
+  }
 
-//   // Not measures teardown code executed after the benchark runs.
-//   void teardown() {
-//     super.teardown();
-//   }
-// }
+  // Not measures teardown code executed after the benchark runs.
+  void teardown() {
+    super.teardown();
+  }
+}
 
-// class LibSodiumSHA512FFIOnlyBenchmark extends BaseBenchmark {
-//   Uint8CArray data;
-//   List<int> units;
-//   LibSodiumSHA512FFIOnlyBenchmark() : super("LibSodiumSHA512FFIOnly");
+class LibSodiumSHA512FFIOnlyBenchmark extends BaseBenchmark {
+  Uint8CArray data;
+  List<int> units;
+  LibSodiumSHA512FFIOnlyBenchmark() : super("LibSodiumSHA512FFIOnly");
 
-//   static void main() {
-//     new LibSodiumSHA512FFIOnlyBenchmark().report();
-//   }
+  static void main() {
+    new LibSodiumSHA512FFIOnlyBenchmark().report();
+  }
 
-//   // The benchmark code.
-//   void run() {
-//     //  ignore: invalid_use_of_visible_for_testing_member
-//     digest = nativeCryptoHashSha512(data.ptr, units.length);
-//   }
+  // The benchmark code.
+  void run() {
+    //  ignore: invalid_use_of_visible_for_testing_member
+    digest = nativeCryptoHashSha512(data.ptr, units.length);
+  }
 
-//   // Not measured setup code executed prior to the benchmark runs.
-//   void setup() {
-//     sodiumInit(libPath: '../');
-//     units = Utf8Encoder().convert(dataToEncrypt);
-//     data = Uint8CArray.from(units);
-//     super.setup();
-//   }
+  // Not measured setup code executed prior to the benchmark runs.
+  void setup() {
+    sodiumInit(libPath: '../');
+    units = Utf8Encoder().convert(dataToEncrypt);
+    data = Uint8CArray.from(units);
+    super.setup();
+  }
 
-//   // Not measures teardown code executed after the benchark runs.
-//   void teardown() {
-//     super.teardown();
-//   }
-// }
+  // Not measures teardown code executed after the benchark runs.
+  void teardown() {
+    super.teardown();
+  }
+}
 
-// class LibSodiumScryptPasswordStorageBenchmark extends BaseBenchmark {
-//   List<int> units;
-//   LibSodiumScryptPasswordStorageBenchmark()
-//       : super("LibSodiumScryptPasswordStorageBenchmark");
+class LibSodiumScryptPasswordStorageBenchmark extends BaseBenchmark {
+  List<int> units;
+  LibSodiumScryptPasswordStorageBenchmark()
+      : super("LibSodiumScryptPasswordStorageBenchmark");
 
-//   static void main() {
-//     new LibSodiumScryptPasswordStorageBenchmark().report();
-//   }
+  static void main() {
+    new LibSodiumScryptPasswordStorageBenchmark().report();
+  }
 
-//   // The benchmark code.
-//   void run() {
-//     digest = Scrypt().passwordStorage(units);
-//   }
+  // The benchmark code.
+  void run() {
+    digest = Scrypt().passwordStorage(units);
+  }
 
-//   // Not measured setup code executed prior to the benchmark runs.
-//   void setup() {
-//     sodiumInit(libPath: '../');
-//     units = Utf8Encoder().convert(dataToEncrypt);
-//     super.setup();
-//   }
+  // Not measured setup code executed prior to the benchmark runs.
+  void setup() {
+    sodiumInit(libPath: '../');
+    units = Utf8Encoder().convert(dataToEncrypt);
+    super.setup();
+  }
 
-//   // Not measures teardown code executed after the benchark runs.
-//   void teardown() {
-//     super.teardown();
-//   }
-// }
+  // Not measures teardown code executed after the benchark runs.
+  void teardown() {
+    super.teardown();
+  }
+}
 
-// main() {
-//   // Run TemplateBenchmark
-//   LibSodiumSHA256Benchmark.main();
-//   LibSodiumSHA512Benchmark.main();
-//   LibSodiumSHA512FFIOnlyBenchmark.main();
-//   if (Platform.isLinux) {
-//     //  scrypt not supported on macos, android
-//     LibSodiumScryptPasswordStorageBenchmark.main();
-//   }
-// }
+main() {
+  // Run TemplateBenchmark
+  LibSodiumSHA256Benchmark.main();
+  LibSodiumSHA512Benchmark.main();
+  LibSodiumSHA512FFIOnlyBenchmark.main();
+  if (Platform.isLinux) {
+    //  scrypt not supported on macos, android
+    LibSodiumScryptPasswordStorageBenchmark.main();
+  }
+}

@@ -1,21 +1,13 @@
-import 'dart:ffi';
 import 'dart:io';
 
 import 'package:meta/meta.dart';
-import 'package:libsodium/src/signatures/natives/native_signatures.dart';
 
-abstract class Bindings<DartSignature extends Function, NativeSignature> {
+abstract class Bindings<DartSignature extends Function> {
   final String functionName;
 
   DartSignature f;
 
-  Bindings(DynamicLibrary sodium, this.functionName) {
-    try {
-      f = sodium
-          .lookup<NativeFunction<NativeSodiumInitSignature>>(functionName)
-          .asFunction<DartSignature>();
-    } catch (_) {}
-  }
+  Bindings(this.functionName);
 
   bool get isAvailable => f != null;
 

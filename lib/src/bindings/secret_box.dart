@@ -1,57 +1,148 @@
-// import 'dart:ffi';
+import 'dart:ffi';
 
-// import 'package:libsodium/src/bindings/bindings.dart';
-// import 'package:libsodium/src/signatures/dart/dart_signatures.dart';
-// import 'package:libsodium/src/signatures/natives/native_signatures.dart';
+import 'package:libsodium/src/bindings/bindings.dart';
 
-// class SecretBoxMacBytesBindings extends Bindings<SecretBoxMacBytesSignature,
-//     NativeSecretBoxMacBytesSignature> {
-//   SecretBoxMacBytesBindings(DynamicLibrary sodium)
-//       : super(sodium, 'crypto_secretbox_macbytes');
+typedef SecretBoxMacBytesSignature = int Function();
+typedef NativeSecretBoxMacBytesSignature = Int32 Function();
 
-//   int call() => f();
-// }
+class SecretBoxMacBytesBindings extends Bindings<SecretBoxMacBytesSignature> {
+  SecretBoxMacBytesBindings(DynamicLibrary sodium)
+      : super('crypto_secretbox_macbytes') {
+    try {
+      f = sodium
+          .lookup<NativeFunction<NativeSecretBoxMacBytesSignature>>(
+              functionName)
+          .asFunction();
+    } catch (_) {}
+  }
 
-// class SecretBoxNonceBytesBindings extends Bindings<SecretBoxNonceBytesSignature,
-//     NativeSecretBoxNonceBytesSignature> {
-//   SecretBoxNonceBytesBindings(DynamicLibrary sodium)
-//       : super(sodium, 'crypto_secretbox_noncebytes');
+  int call() {
+    checkAvailability();
+    return f();
+  }
+}
 
-//   int call() => f();
-// }
+typedef SecretBoxNonceBytesSignature = int Function();
+typedef NativeSecretBoxNonceBytesSignature = Int32 Function();
 
-// class SecretBoxKeyBytesBindings extends Bindings<SecretBoxKeyBytesSignature,
-//     NativeSecretBoxKeyBytesSignature> {
-//   SecretBoxKeyBytesBindings(DynamicLibrary sodium)
-//       : super(sodium, 'crypto_secretbox_keybytes');
+class SecretBoxNonceBytesBindings
+    extends Bindings<SecretBoxNonceBytesSignature> {
+  SecretBoxNonceBytesBindings(DynamicLibrary sodium)
+      : super('crypto_secretbox_noncebytes') {
+    try {
+      f = sodium
+          .lookup<NativeFunction<NativeSecretBoxNonceBytesSignature>>(
+              functionName)
+          .asFunction();
+    } catch (_) {}
+  }
 
-//   int call() => f();
-// }
+  int call() {
+    checkAvailability();
+    return f();
+  }
+}
 
-// class SecretBoxKeyGenBindings
-//     extends Bindings<SecretBoxKeyGenSignature, NativeSecretBoxKeyGenSignature> {
-//   SecretBoxKeyGenBindings(DynamicLibrary sodium)
-//       : super(sodium, 'crypto_secretbox_keygen');
+typedef SecretBoxKeyBytesSignature = int Function();
+typedef NativeSecretBoxKeyBytesSignature = Int32 Function();
 
-//   void call(Pointer<Uint8> pointer) => f(pointer);
-// }
+class SecretBoxKeyBytesBindings extends Bindings<SecretBoxKeyBytesSignature> {
+  SecretBoxKeyBytesBindings(DynamicLibrary sodium)
+      : super('crypto_secretbox_keybytes') {
+    try {
+      f = sodium
+          .lookup<NativeFunction<NativeSecretBoxKeyBytesSignature>>(
+              functionName)
+          .asFunction();
+    } catch (_) {}
+  }
 
-// class SecretBoxEasyBindings
-//     extends Bindings<SecretBoxEasySignature, NativeSecretBoxEasySignature> {
-//   SecretBoxEasyBindings(DynamicLibrary sodium)
-//       : super(sodium, 'crypto_secretbox_easy');
+  int call() {
+    checkAvailability();
+    return f();
+  }
+}
 
-//   void call(Pointer<Uint8> cipherText, Pointer<Uint8> message,
-//           int messageLength, Pointer<Uint8> nonce, Pointer<Uint8> key) =>
-//       f(cipherText, message, messageLength, nonce, key);
-// }
+typedef SecretBoxKeyGenSignature = void Function(Pointer<Uint8> pointer);
+typedef NativeSecretBoxKeyGenSignature = Void Function(Pointer<Uint8> key);
 
-// class SecretBoxOpenEasyBindings extends Bindings<SecretBoxOpenEasySignature,
-//     NativeSecretBoxOpenEasySignature> {
-//   SecretBoxOpenEasyBindings(DynamicLibrary sodium)
-//       : super(sodium, 'crypto_secretbox_open_easy');
+class SecretBoxKeyGenBindings extends Bindings<SecretBoxKeyGenSignature> {
+  SecretBoxKeyGenBindings(DynamicLibrary sodium)
+      : super('crypto_secretbox_keygen') {
+    try {
+      f = sodium
+          .lookup<NativeFunction<NativeSecretBoxKeyGenSignature>>(functionName)
+          .asFunction();
+    } catch (_) {}
+  }
 
-//   int call(Pointer<Uint8> decrypted, Pointer<Uint8> cipherText,
-//           int cipherLength, Pointer<Uint8> nonce, Pointer<Uint8> key) =>
-//       f(decrypted, cipherText, cipherLength, nonce, key);
-// }
+  void call(Pointer<Uint8> pointer) {
+    checkAvailability();
+    return f(pointer);
+  }
+}
+
+typedef SecretBoxEasySignature = int Function(
+  Pointer<Uint8> cipherText,
+  Pointer<Uint8> message,
+  int messageLength,
+  Pointer<Uint8> nonce,
+  Pointer<Uint8> key,
+);
+typedef NativeSecretBoxEasySignature = Int32 Function(
+  Pointer<Uint8> cipherText,
+  Pointer<Uint8> message,
+  Uint32 messageLength,
+  Pointer<Uint8> nonce,
+  Pointer<Uint8> key,
+);
+
+class SecretBoxEasyBindings extends Bindings<SecretBoxEasySignature> {
+  SecretBoxEasyBindings(DynamicLibrary sodium)
+      : super('crypto_secretbox_easy') {
+    try {
+      f = sodium
+          .lookup<NativeFunction<NativeSecretBoxEasySignature>>(functionName)
+          .asFunction();
+    } catch (_) {}
+  }
+
+  int call(Pointer<Uint8> cipherText, Pointer<Uint8> message, int messageLength,
+      Pointer<Uint8> nonce, Pointer<Uint8> key) {
+    checkAvailability();
+    return f(cipherText, message, messageLength, nonce, key);
+  }
+}
+
+typedef SecretBoxOpenEasySignature = int Function(
+  Pointer<Uint8> decrypted,
+  Pointer<Uint8> cipherText,
+  int cipherLength,
+  Pointer<Uint8> nonce,
+  Pointer<Uint8> key,
+);
+typedef NativeSecretBoxOpenEasySignature = Int32 Function(
+  Pointer<Uint8> decrypted,
+  Pointer<Uint8> cipherText,
+  Uint32 cipherLength,
+  Pointer<Uint8> nonce,
+  Pointer<Uint8> key,
+);
+
+class SecretBoxOpenEasyBindings extends Bindings<SecretBoxOpenEasySignature> {
+  SecretBoxOpenEasyBindings(DynamicLibrary sodium)
+      : super('crypto_secretbox_open_easy') {
+    try {
+      f = sodium
+          .lookup<NativeFunction<NativeSecretBoxOpenEasySignature>>(
+              functionName)
+          .asFunction();
+    } catch (_) {}
+  }
+
+  int call(Pointer<Uint8> decrypted, Pointer<Uint8> cipherText,
+      int cipherLength, Pointer<Uint8> nonce, Pointer<Uint8> key) {
+    checkAvailability();
+    return f(decrypted, cipherText, cipherLength, nonce, key);
+  }
+}
