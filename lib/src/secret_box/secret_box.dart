@@ -16,12 +16,19 @@ class SecretBox {
   Digest easy(List<int> message, List<int> nonce, List<int> key) {
     assert(key != null && key.length == bindings.crypto_secretbox_keybytes(),
         'key must be equal to ${bindings.crypto_secretbox_keybytes()}');
-    assert(nonce != null && nonce.length >= 2,
-        'nonce cannot be null and should be superior at 2');
+    List<int> _nonce = []..addAll(nonce);
+    if (_nonce.length < bindings.crypto_secretbox_noncebytes()) {
+      while (_nonce.length != bindings.crypto_secretbox_noncebytes()) {
+        _nonce.add(0);
+      }
+    } else if (_nonce.length > bindings.crypto_secretbox_noncebytes()) {
+      _nonce = _nonce.sublist(0, bindings.crypto_secretbox_noncebytes());
+    }
+    assert(_nonce.length == bindings.crypto_secretbox_noncebytes());
     final cipherText =
         Uint8CArray(bindings.crypto_secretbox_macbytes() + message.length);
     final messageCArray = Uint8CArray.from(message);
-    final nonceCArray = Uint8CArray.from(nonce);
+    final nonceCArray = Uint8CArray.from(_nonce);
     final keyCArray = Uint8CArray.from(key);
     bindings.crypto_secretbox_easy(cipherText.ptr, messageCArray.ptr,
         message.length, nonceCArray.ptr, keyCArray.ptr);
@@ -37,11 +44,18 @@ class SecretBox {
       int messageLength, List<int> cipherText, List<int> nonce, List<int> key) {
     assert(key != null && key.length == bindings.crypto_secretbox_keybytes(),
         'key must be equal to ${bindings.crypto_secretbox_keybytes()}');
-    assert(nonce != null && nonce.length >= 2,
-        'nonce cannot be null and should be superior at 2');
+    List<int> _nonce = []..addAll(nonce);
+    if (_nonce.length < bindings.crypto_secretbox_noncebytes()) {
+      while (_nonce.length != bindings.crypto_secretbox_noncebytes()) {
+        _nonce.add(0);
+      }
+    } else if (_nonce.length > bindings.crypto_secretbox_noncebytes()) {
+      _nonce = _nonce.sublist(0, bindings.crypto_secretbox_noncebytes());
+    }
+    assert(_nonce.length == bindings.crypto_secretbox_noncebytes());
     final decrypted = Uint8CArray(messageLength);
     final cipherCArray = Uint8CArray.from(cipherText);
-    final nonceCArray = Uint8CArray.from(nonce);
+    final nonceCArray = Uint8CArray.from(_nonce);
     final keyCArray = Uint8CArray.from(key);
     final result = bindings.crypto_secretbox_open_easy(decrypted.ptr,
         cipherCArray.ptr, cipherText.length, nonceCArray.ptr, keyCArray.ptr);
