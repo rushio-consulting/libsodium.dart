@@ -8,9 +8,8 @@ typedef NativeSodiumInitSignature = Int32 Function();
 class SodiumInitBindings extends Bindings<SodiumInitSignature> {
   SodiumInitBindings(DynamicLibrary sodium) : super('sodium_init') {
     try {
-      f = sodium
-          .lookup<NativeFunction<NativeSodiumInitSignature>>(functionName)
-          .asFunction();
+      f = sodium.lookupFunction<NativeSodiumInitSignature, SodiumInitSignature>(
+          functionName);
     } catch (_) {}
   }
 

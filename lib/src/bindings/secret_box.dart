@@ -9,10 +9,8 @@ class SecretBoxMacBytesBindings extends Bindings<SecretBoxMacBytesSignature> {
   SecretBoxMacBytesBindings(DynamicLibrary sodium)
       : super('crypto_secretbox_macbytes') {
     try {
-      f = sodium
-          .lookup<NativeFunction<NativeSecretBoxMacBytesSignature>>(
-              functionName)
-          .asFunction();
+      f = sodium.lookupFunction<NativeSecretBoxMacBytesSignature,
+          SecretBoxMacBytesSignature>(functionName);
     } catch (_) {}
   }
 
@@ -30,10 +28,8 @@ class SecretBoxNonceBytesBindings
   SecretBoxNonceBytesBindings(DynamicLibrary sodium)
       : super('crypto_secretbox_noncebytes') {
     try {
-      f = sodium
-          .lookup<NativeFunction<NativeSecretBoxNonceBytesSignature>>(
-              functionName)
-          .asFunction();
+      f = sodium.lookupFunction<NativeSecretBoxNonceBytesSignature,
+          SecretBoxNonceBytesSignature>(functionName);
     } catch (_) {}
   }
 
@@ -50,10 +46,8 @@ class SecretBoxKeyBytesBindings extends Bindings<SecretBoxKeyBytesSignature> {
   SecretBoxKeyBytesBindings(DynamicLibrary sodium)
       : super('crypto_secretbox_keybytes') {
     try {
-      f = sodium
-          .lookup<NativeFunction<NativeSecretBoxKeyBytesSignature>>(
-              functionName)
-          .asFunction();
+      f = sodium.lookupFunction<NativeSecretBoxKeyBytesSignature,
+          SecretBoxKeyBytesSignature>(functionName);
     } catch (_) {}
   }
 
@@ -70,9 +64,8 @@ class SecretBoxKeyGenBindings extends Bindings<SecretBoxKeyGenSignature> {
   SecretBoxKeyGenBindings(DynamicLibrary sodium)
       : super('crypto_secretbox_keygen') {
     try {
-      f = sodium
-          .lookup<NativeFunction<NativeSecretBoxKeyGenSignature>>(functionName)
-          .asFunction();
+      f = sodium.lookupFunction<NativeSecretBoxKeyGenSignature,
+          SecretBoxKeyGenSignature>(functionName);
     } catch (_) {}
   }
 
@@ -101,9 +94,8 @@ class SecretBoxEasyBindings extends Bindings<SecretBoxEasySignature> {
   SecretBoxEasyBindings(DynamicLibrary sodium)
       : super('crypto_secretbox_easy') {
     try {
-      f = sodium
-          .lookup<NativeFunction<NativeSecretBoxEasySignature>>(functionName)
-          .asFunction();
+      f = sodium.lookupFunction<NativeSecretBoxEasySignature,
+          SecretBoxEasySignature>(functionName);
     } catch (_) {}
   }
 
@@ -133,10 +125,8 @@ class SecretBoxOpenEasyBindings extends Bindings<SecretBoxOpenEasySignature> {
   SecretBoxOpenEasyBindings(DynamicLibrary sodium)
       : super('crypto_secretbox_open_easy') {
     try {
-      f = sodium
-          .lookup<NativeFunction<NativeSecretBoxOpenEasySignature>>(
-              functionName)
-          .asFunction();
+      f = sodium.lookupFunction<NativeSecretBoxOpenEasySignature,
+          SecretBoxOpenEasySignature>(functionName);
     } catch (_) {}
   }
 

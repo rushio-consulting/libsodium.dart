@@ -8,10 +8,8 @@ typedef Void NativeRandomBytesBufferSignature(Pointer<Uint8> salt, Uint8 size);
 class RandomBytesBufferBindings extends Bindings<RandomBytesBufferSignature> {
   RandomBytesBufferBindings(DynamicLibrary sodium) : super('randombytes_buf') {
     try {
-      f = sodium
-          .lookup<NativeFunction<NativeRandomBytesBufferSignature>>(
-              functionName)
-          .asFunction();
+      f = sodium.lookupFunction<NativeRandomBytesBufferSignature,
+          RandomBytesBufferSignature>(functionName);
     } catch (_) {}
   }
 

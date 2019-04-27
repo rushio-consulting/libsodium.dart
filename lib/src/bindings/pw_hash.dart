@@ -10,12 +10,9 @@ class PwHashScryptSalsa208Sha256SaltBytesBindings
   PwHashScryptSalsa208Sha256SaltBytesBindings(DynamicLibrary sodium)
       : super('crypto_pwhash_scryptsalsa208sha256_saltbytes') {
     try {
-      f = sodium
-          .lookup<
-                  NativeFunction<
-                      NativePwHashScryptSalsa208Sha256SaltBytesSignature>>(
-              functionName)
-          .asFunction();
+      f = sodium.lookupFunction<
+          NativePwHashScryptSalsa208Sha256SaltBytesSignature,
+          PwHashScryptSalsa208Sha256SaltBytesSignature>(functionName);
     } catch (_) {}
   }
 
@@ -34,12 +31,9 @@ class PwHashScryptSalsa208Sha256OpsLimitInteractiveBindings
   PwHashScryptSalsa208Sha256OpsLimitInteractiveBindings(DynamicLibrary sodium)
       : super('crypto_pwhash_scryptsalsa208sha256_opslimit_interactive') {
     try {
-      f = sodium
-          .lookup<
-                  NativeFunction<
-                      NativePwHashScryptSalsa208Sha256OpsLimitInteractiveSignature>>(
-              functionName)
-          .asFunction();
+      f = sodium.lookupFunction<
+          NativePwHashScryptSalsa208Sha256OpsLimitInteractiveSignature,
+          PwHashScryptSalsa208Sha256OpsLimitInteractiveSignature>(functionName);
     } catch (_) {}
   }
 
@@ -58,12 +52,9 @@ class PwHashScryptSalsa208Sha256MemLimitInteractiveBindings
   PwHashScryptSalsa208Sha256MemLimitInteractiveBindings(DynamicLibrary sodium)
       : super('crypto_pwhash_scryptsalsa208sha256_memlimit_interactive') {
     try {
-      f = sodium
-          .lookup<
-                  NativeFunction<
-                      NativePwHashScryptSalsa208Sha256MemLimitInteractiveSignature>>(
-              functionName)
-          .asFunction();
+      f = sodium.lookupFunction<
+          NativePwHashScryptSalsa208Sha256MemLimitInteractiveSignature,
+          PwHashScryptSalsa208Sha256MemLimitInteractiveSignature>(functionName);
     } catch (_) {}
   }
 
@@ -82,12 +73,9 @@ class PwHashScryptSalsa208Sha256OpsLimitSensitiveBindings
   PwHashScryptSalsa208Sha256OpsLimitSensitiveBindings(DynamicLibrary sodium)
       : super('crypto_pwhash_scryptsalsa208sha256_opslimit_sensitive') {
     try {
-      f = sodium
-          .lookup<
-                  NativeFunction<
-                      NativePwHashScryptSalsa208Sha256OpsLimitSensitiveSignature>>(
-              functionName)
-          .asFunction();
+      f = sodium.lookupFunction<
+          NativePwHashScryptSalsa208Sha256OpsLimitSensitiveSignature,
+          PwHashScryptSalsa208Sha256OpsLimitSensitiveSignature>(functionName);
     } catch (_) {}
   }
 
@@ -106,12 +94,9 @@ class PwHashScryptSalsa208Sha256MemLimitSensitiveBindings
   PwHashScryptSalsa208Sha256MemLimitSensitiveBindings(DynamicLibrary sodium)
       : super('crypto_pwhash_scryptsalsa208sha256_memlimit_sensitive') {
     try {
-      f = sodium
-          .lookup<
-                  NativeFunction<
-                      NativePwHashScryptSalsa208Sha256MemLimitSensitiveSignature>>(
-              functionName)
-          .asFunction();
+      f = sodium.lookupFunction<
+          NativePwHashScryptSalsa208Sha256MemLimitSensitiveSignature,
+          PwHashScryptSalsa208Sha256MemLimitSensitiveSignature>(functionName);
     } catch (_) {}
   }
 
@@ -145,10 +130,8 @@ class PwHashScryptSalsa208Sha256Bindings
   PwHashScryptSalsa208Sha256Bindings(DynamicLibrary sodium)
       : super('crypto_pwhash_scryptsalsa208sha256') {
     try {
-      f = sodium
-          .lookup<NativeFunction<NativePwHashScryptSalsa208Sha256Signature>>(
-              functionName)
-          .asFunction();
+      f = sodium.lookupFunction<NativePwHashScryptSalsa208Sha256Signature,
+          PwHashScryptSalsa208Sha256Signature>(functionName);
     } catch (_) {}
   }
 
@@ -174,12 +157,9 @@ class PwHashScryptSalsa208Sha256StrBytesBindings
   PwHashScryptSalsa208Sha256StrBytesBindings(DynamicLibrary sodium)
       : super('crypto_pwhash_scryptsalsa208sha256_strbytes') {
     try {
-      f = sodium
-          .lookup<
-                  NativeFunction<
-                      NativePwHashScryptSalsa208Sha256StrBytesSignature>>(
-              functionName)
-          .asFunction();
+      f = sodium.lookupFunction<
+          NativePwHashScryptSalsa208Sha256StrBytesSignature,
+          PwHashScryptSalsa208Sha256StrBytesSignature>(functionName);
     } catch (_) {}
   }
 
@@ -209,10 +189,8 @@ class PwHashScryptSalsa208Sha256StrBindings
   PwHashScryptSalsa208Sha256StrBindings(DynamicLibrary sodium)
       : super('crypto_pwhash_scryptsalsa208sha256_str') {
     try {
-      f = sodium
-          .lookup<NativeFunction<NativePwHashScryptSalsa208Sha256StrSignature>>(
-              functionName)
-          .asFunction();
+      f = sodium.lookupFunction<NativePwHashScryptSalsa208Sha256StrSignature,
+          PwHashScryptSalsa208Sha256StrSignature>(functionName);
     } catch (_) {}
   }
 
@@ -240,10 +218,9 @@ class PwHashScryptSalsa208Sha256StrVerifyBindings
   PwHashScryptSalsa208Sha256StrVerifyBindings(DynamicLibrary sodium)
       : super('crypto_pwhash_scryptsalsa208sha256_str_verify') {
     try {
-      f = sodium
-          .lookup<NativeFunction<NativePwHashScryptSalsa208Sha256StrVerifySignature>>(
-              functionName)
-          .asFunction();
+      f = sodium.lookupFunction<
+          NativePwHashScryptSalsa208Sha256StrVerifySignature,
+          PwHashScryptSalsa208Sha256StrVerifySignature>(functionName);
     } catch (_) {}
   }
 

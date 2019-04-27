@@ -12,9 +12,8 @@ class Sha256BytesBindings extends Bindings<Sha256BytesSignature> {
   Sha256BytesBindings(DynamicLibrary sodium)
       : super('crypto_hash_sha256_bytes') {
     try {
-      f = sodium
-          .lookup<NativeFunction<NativeSha256BytesSignature>>(functionName)
-          .asFunction();
+      f = sodium.lookupFunction<NativeSha256BytesSignature,
+          Sha256BytesSignature>(functionName);
     } catch (_) {}
   }
 
@@ -31,9 +30,8 @@ class Sha512BytesBindings extends Bindings<Sha512BytesSignature> {
   Sha512BytesBindings(DynamicLibrary sodium)
       : super('crypto_hash_sha512_bytes') {
     try {
-      f = sodium
-          .lookup<NativeFunction<NativeSha512BytesSignature>>(functionName)
-          .asFunction();
+      f = sodium.lookupFunction<NativeSha512BytesSignature,
+          Sha512BytesSignature>(functionName);
     } catch (_) {}
   }
 
@@ -52,8 +50,7 @@ class Sha256Bindings extends Bindings<Sha256Signature> {
   Sha256Bindings(DynamicLibrary sodium) : super('crypto_hash_sha256') {
     try {
       f = sodium
-          .lookup<NativeFunction<NativeSha256Signature>>(functionName)
-          .asFunction();
+          .lookupFunction<NativeSha256Signature, Sha256Signature>(functionName);
     } catch (_) {}
   }
 
@@ -72,8 +69,7 @@ class Sha512Bindings extends Bindings<Sha512Signature> {
   Sha512Bindings(DynamicLibrary sodium) : super('crypto_hash_sha512') {
     try {
       f = sodium
-          .lookup<NativeFunction<NativeSha512Signature>>(functionName)
-          .asFunction();
+          .lookupFunction<NativeSha512Signature, Sha512Signature>(functionName);
     } catch (_) {}
   }
 

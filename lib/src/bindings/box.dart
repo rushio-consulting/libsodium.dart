@@ -8,9 +8,8 @@ typedef NativeBoxSeedBytesSignature = Uint8 Function();
 class BoxSeedBytesBindings extends Bindings<BoxSeedBytesSignature> {
   BoxSeedBytesBindings(DynamicLibrary sodium) : super('crypto_box_seedbytes') {
     try {
-      f = sodium
-          .lookup<NativeFunction<NativeBoxSeedBytesSignature>>(functionName)
-          .asFunction();
+      f = sodium.lookupFunction<NativeBoxSeedBytesSignature,
+          BoxSeedBytesSignature>(functionName);
     } catch (_) {}
   }
 
