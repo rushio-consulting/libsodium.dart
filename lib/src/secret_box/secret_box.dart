@@ -27,7 +27,7 @@ class SecretBox {
     final cipherText =
         Uint8CArray(bindings.secretBoxMacBytesBindings() + message.length);
     final messageCArray = Uint8CArray.from(message);
-    final nonceCArray = Uint8CArray.from(nonce);
+    final nonceCArray = Uint8CArray.from(_nonce);
     final keyCArray = Uint8CArray.from(key);
     bindings.secretBoxEasyBindings(cipherText.ptr, messageCArray.ptr,
         message.length, nonceCArray.ptr, keyCArray.ptr);
@@ -55,13 +55,12 @@ class SecretBox {
         'nonce must be equal to ${bindings.secretBoxNonceBytesBindings()}');
     final decrypted = Uint8CArray(messageLength);
     final cipherCArray = Uint8CArray.from(cipherText);
-    final nonceCArray = Uint8CArray.from(nonce);
+    final nonceCArray = Uint8CArray.from(_nonce);
     final keyCArray = Uint8CArray.from(key);
     final result = bindings.secretBoxOpenEasyBindings(decrypted.ptr,
         cipherCArray.ptr, cipherText.length, nonceCArray.ptr, keyCArray.ptr);
     if (result != 0) {
       decrypted.free();
-      print('result == 0');
       return null;
     }
     final digest = Digest(decrypted.bytes);
