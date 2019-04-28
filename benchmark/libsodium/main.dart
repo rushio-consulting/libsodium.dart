@@ -117,11 +117,24 @@ class LibSodiumScryptPasswordStorageBenchmark extends BaseBenchmark {
 
 main() {
   // Run TemplateBenchmark
-  LibSodiumSHA256Benchmark.main();
-  LibSodiumSHA512Benchmark.main();
-  LibSodiumSHA512FFIOnlyBenchmark.main();
-  if (Platform.isLinux) {
-    //  scrypt not supported on macos, android
+  try {
+    LibSodiumSHA256Benchmark.main();
+  } catch (e) {
+    print(e);
+  }
+  try {
+    LibSodiumSHA512Benchmark.main();
+  } catch (e) {
+    print(e);
+  }
+  try {
+    LibSodiumSHA512FFIOnlyBenchmark.main();
+  } catch (e) {
+    print(e);
+  }
+  try {
     LibSodiumScryptPasswordStorageBenchmark.main();
+  } catch (e) {
+    print(e);
   }
 }
