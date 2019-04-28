@@ -7,29 +7,29 @@ import 'package:libsodium/src/utils/native_random_bytes_buf.dart';
 Pointer<Uint8> cryptoPwhashScryptsalsa208sha256(
     Pointer<Uint8> password, int passwordLength,
     {Pointer<Uint8> salt}) {
-  final key = allocate<Uint8>(count: bindings.crypto_box_seedbytes());
+  final key = allocate<Uint8>(count: bindings.boxSeedBytesBindings());
   Pointer<Uint8> _salt;
   if (salt == null) {
     _salt = nativeRandomBytesBuf(
-        bindings.crypto_pwhash_scryptsalsa208sha256_saltbytes());
+        bindings.pwHashScryptSalsa208Sha256SaltBytesBindings());
   }
-  bindings.crypto_pwhash_scryptsalsa208sha256(
+  bindings.pwHashScryptSalsa208Sha256Bindings(
     key,
-    bindings.crypto_box_seedbytes(),
+    bindings.boxSeedBytesBindings(),
     password,
     passwordLength,
     salt ?? _salt,
-    bindings.crypto_pwhash_scryptsalsa208sha256_opslimit_interactive(),
-    bindings.crypto_pwhash_scryptsalsa208sha256_memlimit_interactive(),
+    bindings.pwHashScryptSalsa208Sha256OpsLimitInteractiveBindings(),
+    bindings.pwHashScryptSalsa208Sha256MemLimitInteractiveBindings(),
   );
   _salt?.free();
   return key;
 }
 
 List<int> scryptKeyDerivation(List<int> password, {List<int> salt}) {
-  if (salt.length != bindings.crypto_pwhash_scryptsalsa208sha256_saltbytes()) {
+  if (salt.length != bindings.pwHashScryptSalsa208Sha256SaltBytesBindings()) {
     throw ArgumentError(
-        'salt length must be equal to ${bindings.crypto_pwhash_scryptsalsa208sha256_saltbytes()}');
+        'salt length must be equal to ${bindings.pwHashScryptSalsa208Sha256SaltBytesBindings()}');
   }
   Pointer<Uint8> _salt;
   if (salt != null) {
@@ -42,8 +42,8 @@ List<int> scryptKeyDerivation(List<int> password, {List<int> salt}) {
   final _data = cryptoPwhashScryptsalsa208sha256(
       _password.ptr, _password.length,
       salt: _salt);
-  final d = List<int>(bindings.crypto_box_seedbytes());
-  for (var i = 0; i < bindings.crypto_box_seedbytes(); i++) {
+  final d = List<int>(bindings.boxSeedBytesBindings());
+  for (var i = 0; i < bindings.boxSeedBytesBindings(); i++) {
     d[i] = _data.elementAt(i).load<int>();
   }
   _salt?.free();

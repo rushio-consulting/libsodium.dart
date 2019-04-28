@@ -4,6 +4,6 @@ import 'package:libsodium/src/init.dart';
 
 Pointer<Uint8> nativeRandomBytesBuf(int size) {
   final salt = allocate<Uint8>(count: size);
-  bindings.randombytes_buf(salt, size);
+  bindings.randomBytesBufferBindings(salt, size);
   return salt;
 }

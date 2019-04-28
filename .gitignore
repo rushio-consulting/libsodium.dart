@@ -13,3 +13,4 @@ doc/api/
 libsodium.so*
 libsodium*.dylib*
 /.idea/
+.vscode

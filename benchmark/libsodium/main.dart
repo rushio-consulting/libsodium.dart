@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:libsodium/libsodium.dart';
 
@@ -116,8 +117,24 @@ class LibSodiumScryptPasswordStorageBenchmark extends BaseBenchmark {
 
 main() {
   // Run TemplateBenchmark
-  LibSodiumSHA256Benchmark.main();
-  LibSodiumSHA512Benchmark.main();
-  LibSodiumSHA512FFIOnlyBenchmark.main();
-  LibSodiumScryptPasswordStorageBenchmark.main();
+  try {
+    LibSodiumSHA256Benchmark.main();
+  } catch (e) {
+    print(e);
+  }
+  try {
+    LibSodiumSHA512Benchmark.main();
+  } catch (e) {
+    print(e);
+  }
+  try {
+    LibSodiumSHA512FFIOnlyBenchmark.main();
+  } catch (e) {
+    print(e);
+  }
+  try {
+    LibSodiumScryptPasswordStorageBenchmark.main();
+  } catch (e) {
+    print(e);
+  }
 }

@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:libsodium/libsodium.dart';
 
 void main() {
-  sodiumInit();
+  sodiumInit(libPath: './');
 
   final utils = Utils();
   final secretBox = SecretBox();
