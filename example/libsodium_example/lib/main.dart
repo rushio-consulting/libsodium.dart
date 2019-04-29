@@ -48,24 +48,27 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          TextField(
-            controller: controller,
-            onChanged: (value) {
-              setState(() {
-                sha512 = _sha512.convert(utf8.encode(value)).toString();
-              });
-            },
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 16),
-            child: Text('SHA512 value of \'${controller.text}\' is'),
-          ),
-          Text(sha512),
-        ],
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            TextField(
+              controller: controller,
+              onChanged: (value) {
+                setState(() {
+                  sha512 = _sha512.convert(utf8.encode(value)).toString();
+                });
+              },
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 16),
+              child: Text('SHA512 value of \'${controller.text}\' is'),
+            ),
+            Text(sha512),
+          ],
+        ),
       ),
     );
   }
