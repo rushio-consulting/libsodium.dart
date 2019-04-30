@@ -14,3 +14,6 @@ libsodium.so*
 libsodium*.dylib*
 /.idea/
 .vscode
+
+!example/libsodium_example/native-libraries/arm64-v8a/libsodium.so
+!example/libsodium_example/native-libraries/armabi-v7a/libsodium.so

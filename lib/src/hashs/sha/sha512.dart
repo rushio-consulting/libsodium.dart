@@ -6,15 +6,17 @@ import 'package:libsodium/src/init.dart';
 import 'package:libsodium/src/utils/digest.dart';
 
 Pointer<Uint8> nativeCryptoHashSha512(Pointer<Uint8> bytes, int length) =>
-    shaBase(bytes, length, bindings.sha512bytesBindings(),
-        bindings.sha512bindings);
+    shaBase(
+        bytes, length, bindings.sha512bytesBindings(), bindings.sha512bindings);
 
 List<int> cryptoHashSha512(List<int> codeUnits) {
+  if (codeUnits.length == 0) {
+    return [];
+  }
   var bytesArray = Uint8CArray.from(codeUnits);
   final out = nativeCryptoHashSha512(bytesArray.ptr, codeUnits.length);
   bytesArray.ptr.free();
-  bytesArray =
-      Uint8CArray.fromPointer(out, bindings.sha512bytesBindings());
+  bytesArray = Uint8CArray.fromPointer(out, bindings.sha512bytesBindings());
   final bytes = bytesArray.bytes;
   bytesArray.ptr.free();
   out.free();

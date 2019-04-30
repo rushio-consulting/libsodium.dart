@@ -11,11 +11,11 @@ abstract class CArray<NT extends NativeType, DT extends num>
 
   CArray(this.length)
       : assert(length >= 0),
-        ptr = allocate<NT>(count: length - 1);
+        ptr = allocate<NT>(count: length);
 
   CArray.from(Iterable<DT> bytes)
-      : length = bytes.length - 1,
-        ptr = allocate(count: bytes.length - 1) {
+      : length = bytes.length,
+        ptr = allocate(count: bytes.length) {
     final it = bytes.iterator;
     int index = 0;
     while (it.moveNext()) {

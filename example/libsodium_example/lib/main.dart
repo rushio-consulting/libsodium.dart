@@ -1,8 +1,11 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:libsodium/libsodium.dart';
 
 void main() {
   sodiumInit();
+
   runApp(MyApp());
 }
 
@@ -29,12 +32,14 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+  final controller = TextEditingController(text: 'Hello libsodium');
+  final _sha512 = Sha512();
+  String sha512 = '';
 
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
+  @override
+  void initState() {
+    super.initState();
+    sha512 = _sha512.convert(utf8.encode(controller.text)).toString();
   }
 
   @override
@@ -43,24 +48,27 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Center(
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
+            TextField(
+              controller: controller,
+              onChanged: (value) {
+                setState(() {
+                  sha512 = _sha512.convert(utf8.encode(value)).toString();
+                });
+              },
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.display1,
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 16),
+              child: Text('SHA512 value of \'${controller.text}\' is'),
             ),
+            Text(sha512),
           ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
       ),
     );
   }
